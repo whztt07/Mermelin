@@ -1,0 +1,15 @@
+<!-- cursor.rml by Patrick Joos, Eduardo Hahn Paredes, 2012 -->
+<rml>
+    <head>
+        <style>
+            body 
+            {
+                width: 12px;
+		height: 19px;
+                cursor-decorator: image;
+                cursor-image: menu_color.png 56px 212px 68px 231px;
+            }
+	</style>
+    </head>
+    <body></body>
+</rml>

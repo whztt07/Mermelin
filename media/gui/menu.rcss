@@ -1,0 +1,164 @@
+ /* menu.rcss by Eduardo Hahn Paredes, 2013 */
+
+body
+{
+    width: 512px;
+    height: 300px;
+    margin: auto;
+    font-family: "Bouwsma Uncial";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 15;
+    color: white;
+    text-align: center;
+}
+
+body.window
+{
+    display: inline-block;
+    text-align: center;
+    background-decorator: tiled-box;
+    background-top-left-image: menu_color.png 0px 0px 133px 140px;
+    background-top-right-image: menu_color.png 136px 0px 146px 140px;
+    background-top-image: menu_color.png stretch 134px 0px 135px 140px;
+    background-bottom-left-image: menu_color.png 0px 140px 11px 151px;
+    background-bottom-right-image: menu_color.png 136px 140px 146px 151px;
+    background-bottom-image: menu_color.png stretch 11px 140px 12px 151px;
+    background-left-image: menu_color.png stretch 0px 139px 10px 140px;
+    background-center-image: menu_color.png stretch 11px 139px 12px 140px;
+    padding: 10px 15px;
+    z-index: 1;
+}
+
+div#mermelin
+{
+    height: 82px;
+    icon-decorator: image;
+    icon-image: menu_color.png 0px 432px 512px 512px;
+    position: absolute;
+    top: -54px;
+    left: -1px;
+}
+
+div#stoat
+{
+    height: 82px;
+    icon-decorator: image;
+    icon-image: menu_color.png 0px 432px 512px 512px;
+    position: absolute;
+    top: -54px;
+    left: -1px;
+}
+scrollbarvertical
+{
+    width: 27px;
+    margin-top: -6px;
+    margin-bottom: -6px;
+    margin-right: -11px;
+}
+
+scrollbarvertical slidertrack
+{
+    background-decorator: tiled-vertical;
+    background-top-image: menu_color.png 56px 199px 83px 201px;
+    background-center-image: menu_color.png stretch 56px 201px 83px 202px;
+    background-bottom-image: menu_color.png 56px 203px 83px 204px;
+}
+
+scrollbarvertical sliderbar
+{
+    margin-left: 4px;
+    width: 23px;
+    min-height: 46px;
+
+    background-decorator: tiled-vertical;
+    background-top-image: menu_color.png 56px 152px 79px 175px;
+    background-center-image: menu_color.png stretch 56px 175px 79px 175px;
+    background-bottom-image: menu_color.png 56px 176px 79px 198px;
+}
+
+scrollbarvertical sliderbar:hover
+{
+    background-top-image-s: 80px 103px;
+    background-center-image-s: 80px 103px;
+    background-bottom-image-s: 80px 103px;
+}
+
+scrollbarvertical sliderbar:active
+{
+    background-top-image-s: 104px 127px;
+    background-center-image-s: 104px 127px;
+    background-bottom-image-s: 104px 127px;
+}
+
+scrollbarvertical sliderarrowdec,
+scrollbarvertical sliderarrowinc
+{
+    width: 27px;
+    height: 24px;
+}
+
+scrollbarvertical sliderarrowdec
+{
+    icon-decorator: image;
+    icon-image: menu_color.png 0px 152px 27px 176px;
+}
+
+scrollbarvertical sliderarrowinc
+{
+    icon-decorator: image;
+    icon-image: menu_color.png 28px 152px 55px 176px;
+}
+
+scrollbarvertical sliderarrowdec:hover,
+scrollbarvertical sliderarrowinc:hover
+{
+    icon-image-t: 177px 201px;
+}
+
+scrollbarvertical sliderarrowdec:active,
+scrollbarvertical sliderarrowinc:active
+{
+    icon-image-t: 202px 226px;
+}
+
+button
+{
+    float: top;
+	display: inline-block;
+
+	width: 159px;
+	height: 37px;
+
+	padding-top: 8px;
+	vertical-align: -18px;
+
+	font-size: 18;
+	text-align: center;
+	tab-index: auto;
+
+    background-decorator: image;
+    background-image: menu_color.png 247px 0px 406px 45px;
+    z-index: 3;
+}
+
+button:focus,
+input.submit:focus
+{
+    font-weight: bold;    
+    shadow-font-effect: shadow;
+    shadow-offset: 1px 1px;
+    shadow-color: black;
+}
+
+button:hover,
+input.submit:hover
+{
+    background-image-t: 45px 90px;
+}
+
+button:active,
+input.submit:active
+{
+    background-image-t: 90px 135px;
+}

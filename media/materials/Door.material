@@ -1,0 +1,34 @@
+// Door material, 2012
+// Material that is used for doors.
+// Patrick Joos, Eduardo Hahn Paredes
+
+material Door
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass door
+        {
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes on
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            shading gouraud
+            transparent_sorting on
+            texture_unit door            
+            {
+                texture door_color.png
+                tex_address_mode wrap
+            }
+        }
+    }
+}

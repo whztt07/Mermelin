@@ -1,0 +1,24 @@
+material Wind 
+{
+    receive_shadows off
+    technique
+    {
+        pass Wind
+        {
+            scene_blend alpha_blend
+            colour_write on
+            cull_hardware none
+            depth_write off
+            illumination_stage 
+            lighting off
+            normalise_normals on
+            polygon_mode solid
+            shading phong
+            transparent_sorting on
+            texture_unit vortex_color
+            {
+                texture vortex_color.png
+            }
+        }
+    }
+}

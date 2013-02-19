@@ -1,0 +1,18 @@
+// Floor material, 2012
+// Material that is used for the rotor.
+// Patrick Joos, Eduardo Hahn Paredes
+
+material Rotor 
+{
+    receive_shadows on
+    technique
+    {
+        pass Rotor
+        {
+            ambient  0.3 0.3 0.3 1.0
+            diffuse  0.2 0.2 0.2 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+        }
+    }
+}

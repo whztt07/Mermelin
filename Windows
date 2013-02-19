@@ -1,0 +1,27 @@
+Install all these libraries to one folder, for example C:\gamedev
+
+1) Download and install premake4
+2) Download and install CMAKE
+3) Download and install BOOST	
+4) Download and install OGRE
+5) Download and install Bullet
+6) Download and install SFML
+7) Set up Enviroment variables
+	- OGRE_HOME -> Points to the ogre sdk 
+		- example C:\OgreSDK_vc10_v1-7-4
+		
+	- GAMEDEV_LIBS -> Points to a folder containing ALL external libraries
+		- most important: SFML, Bullet, Boost
+		- example C:\gamedev		
+8) Run Premake4
+    - Open CMD
+    - Run premake4.exe
+    - This will generate a Visual Studio 2010 Solution
+
+FAQ:
+
+Q: When I run the game, the error message "Can't find libdsd1.dll" cannot be found" appears. 
+   How do I fix this?
+
+A: This is a missing external library. It's located within SFML-1.6\extlibs\bin. 
+   Simply copy it to the OGRE debug binaries (OgreSdk\bin\debug)

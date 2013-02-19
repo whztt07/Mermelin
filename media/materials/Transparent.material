@@ -1,0 +1,14 @@
+// Transparent material, 2012
+// Invisible material for objects that shall not be displayed in OGRE.
+// Patrick Joos, Eduardo Hahn Paredes
+
+material Transparent
+{
+    technique 
+    {
+        pass
+        {
+            depth_func always_fail       
+        }
+    }
+}

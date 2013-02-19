@@ -1,0 +1,42 @@
+# game level
+Properties:
+name = Level1
+start = (9, 0, 9)
+camera = (0, 2, -5)
+Logic:
+button = b1,(9, 0, 2)
+door   = d1, horizontal, b1, (8, 0, 9)
+Objects:
+0000000fff
+0000000fff
+0000000fff
+00000000f
+00000000f
+00000000f
+00000000f
+fff0000fff00000fff
+fGffffffffffffffff
+fff0000fff00000fff
+00000000f
+00000000f
+00000000f
+0000000fff
+0000000fff
+0000000fff
+@
+0000000qQv
+0000000RFV
+0000000r0b
+0
+0
+0
+0
+qQv0000qMv00000qQv
+R0000000000000000V
+rBb0000r0b00000rBb
+0
+0
+0
+0000000q0v
+0000000R0V
+0000000rBb

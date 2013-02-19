@@ -1,0 +1,20 @@
+// Wall material, 2012
+// Material that is used as base for the walls.
+// Patrick Joos, Eduardo Hahn Paredes
+
+material Wall
+{
+    receive_shadows on
+    technique
+    {
+        pass
+        {
+            shading phong
+            texture_unit wall
+            {
+                texture wall_color.png
+                tex_address_mode wrap
+            }
+        }
+    }
+}

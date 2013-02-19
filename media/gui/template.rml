@@ -1,0 +1,9 @@
+<!-- template.rml by Eduardo Hahn Paredes, 2013 -->
+<template name="window" content="content">
+<head>
+	<link type="text/css" href="menu.rcss"/>
+</head>
+<body class="window">
+	 <div id="mermelin"></div>
+</body>
+</template>

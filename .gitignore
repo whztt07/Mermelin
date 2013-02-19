@@ -1,0 +1,15 @@
+Engine.vcxproj
+Engine.vcxproj.filters
+Engine.vcxproj.user
+Thesis.*
+_ReSharper.*
+bin/*
+obj/*
+ipch/*
+premake4.exe
+Docs
+media/meshes/OgreMeshUpgrade.log
+premake4.exe.back
+/ThesisMakefile
+/doc/
+Deployment/Windows/mermelin.exe

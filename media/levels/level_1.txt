@@ -1,0 +1,19 @@
+# game level
+Properties:
+name = Level2
+start = (2, 0, 2)    #3D coordinates (x, y, z) of the sphere start position
+camera = (0, 3, -2)  #3D coordinates (x, y, z) of the camera
+Logic:
+Objects:
+# floor 1
+ffffff
+f0ff0f
+ffffff
+f0ff0f
+ffffff
+@
+qQQQQv
+RE00WV
+R0000V
+RF00AV
+rBBBBb

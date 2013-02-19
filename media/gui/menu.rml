@@ -1,0 +1,13 @@
+<!-- menu.rml by Eduardo Hahn Paredes, 2013 -->
+<rml>
+    <head>
+        <link type="text/template" href="template.rml" />
+        <title>Menu</title>
+    </head>
+    <body template="window" style="height: 250px; min-height: 250px">
+        <br /><br />
+        <button id="start" onclick="startGame">start</button><br />
+        <button id="credits" onclick="startGame">credits</button><br />
+        <button id="quit" onclick="startGame">quit</button><br />
+    </body>
+</rml>
