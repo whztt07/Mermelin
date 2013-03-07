@@ -23,7 +23,10 @@
 
 using namespace CotopaxiEngine;
 
-LogicModule::LogicModule(){}
+LogicModule::~LogicModule()
+{
+    unload();
+}
 
 BaseComponent* LogicModule::createTrigger(Entity* parent, std::string name)
 {
@@ -54,4 +57,16 @@ Condition* LogicModule::getTarget(Entity* parent)
 BaseComponent* LogicModule::getComponent(Entity* parent)
 {
     return (BaseComponent*) targets[parent->getName()];
+}
+
+void LogicModule::unload()
+{
+    for (auto &element : triggers) {
+        delete &element;
+    }
+    triggers.clear();
+    for (auto &element : targets) {
+        delete &element;
+    }
+    targets.clear();
 }

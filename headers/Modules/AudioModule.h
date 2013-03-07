@@ -119,6 +119,8 @@ namespace CotopaxiEngine
     {
     public:
         
+        virtual ~AudioModule();
+        
         /**
          * @fn playSound
          * @param path where the file is located
@@ -154,6 +156,8 @@ namespace CotopaxiEngine
          * @param volume A float between 0.0 (mute) and 100.0 (loud)
          */
         void setGlobalVolume(float volume);
+        
+        void unload();
         
         BaseComponent* getComponent(Entity* entity);
         virtual bool frameRenderingQueued(const Ogre::FrameEvent &evt);

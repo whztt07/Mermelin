@@ -40,6 +40,7 @@ PhysicsModule::PhysicsModule()
 
 PhysicsModule::~PhysicsModule()
 {
+    unload();
     delete solver;
     delete dispatcher;
     delete config;
@@ -136,4 +137,12 @@ void PhysicsModule::removeComponent(std::string component)
 	{
 		ghosts.erase(ghostToRemove);
 	}
+}
+
+void PhysicsModule::unload()
+{    
+    for (auto &element : components) {
+        delete &element;
+    }
+    components.clear();
 }

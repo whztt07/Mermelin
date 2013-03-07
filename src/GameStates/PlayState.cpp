@@ -21,7 +21,6 @@
 #include "Engine.h"
 #include "Resources/Managers/LevelManager.h"
 #include "Entities/Sphere.h"
-#include "Shaders/EarthShader.h"
 
 using namespace CotopaxiEngine;
 
@@ -42,20 +41,21 @@ void PlayState::load()
 #else
     LevelManager::getSingleton().load("level_" + std::to_string(level) + ".txt",
             Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-#endif
-    
-    Entity* sphere = NULL;
-
-    if (!loaded) {
-        sphere = ENGINE->produceEntity("sphere", "playerSphere");
-        ground = ENGINE->produceEntity("groundplate", "GroundPlate");
-        ground->receiveEvent(new Event(Event::TRANSLATE));
-    } else {
-        sphere = ENGINE->getEntity("playerSphere");
-    }
-
+#endif    
+    Entity* sphere = ENGINE->produceEntity("sphere", "playerSphere");
     sphere->getNode()->setPosition(ENGINE->getStartPosition());
     sphere->receiveEvent(new Event(Event::TRANSLATE));
+    
+    Entity* ground = ENGINE->produceEntity("groundplate", "groundPlate");
+    ground->receiveEvent(new Event(Event::TRANSLATE));
+    
+    Ogre::Light* light = ENGINE->getSceneManager()->createLight("MainLight");
+    light->setPosition(50, 50, 50);
+    light->setPowerScale(20);
+    light->setType(Ogre::Light::LT_POINT);
+    light->setCastShadows(true);
+    light->setDiffuseColour(1.0, 1.0, 1.0);
+    
     ENGINE->getCamera()->attachTo(sphere);
 
     loaded = true;
@@ -64,7 +64,9 @@ void PlayState::load()
 void PlayState::loadNext()
 {
     LevelManager::getSingleton().unload("level_" + std::to_string(((long double) level)) + ".txt");
-    ENGINE->removeEntity(ground);
+    ENGINE->getSceneManager()->clearScene();
+    ENGINE->unloadAllModules();
+    ENGINE->loadAllModules();
     level++;
     load();
 }

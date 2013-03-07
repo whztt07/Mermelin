@@ -15,7 +15,6 @@
  * @file Door.cpp
  * @author Eduardo Hahn Paredes
  */
-
 #include "stdafx.h"
 #include "Engine.h"
 #include "Components/GraphicComponent.h"
@@ -29,7 +28,7 @@ using namespace CotopaxiEngine;
 
 Door::Door(std::string name, Ogre::SceneNode* parentNode)
 : Entity(name, "Door_Arc", parentNode), state(CLOSED)
-{
+{    
     this->addComponent(ENGINE->getGraphic()->getComponent(this));
     leftDoor = ENGINE->createEntity("leftDoor_" + name, "Door_Left", this->getNode());
     leftDoor->addComponent(ENGINE->getGraphic()->getComponent(leftDoor));
@@ -40,7 +39,7 @@ Door::Door(std::string name, Ogre::SceneNode* parentNode)
     rightDoor->addComponent(ENGINE->getPhysics()->getComponent(rightDoor, 0, PhysicsModule::TRIMESH, PhysicsModule::COL_STATIC, PhysicsModule::COL_PLAYER, false));
 
 	leftDoor->registerListener(Event::ANIMATION_ENDED, this);
-	leftDoor->registerListener(Event::ANIMATION_ENDED, this);
+	leftDoor->registerListener(Event::ANIMATION_ENDED, this);    
 }
 
 Door::~Door()

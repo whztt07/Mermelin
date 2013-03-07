@@ -24,7 +24,7 @@ using namespace CotopaxiEngine;
 using namespace Ogre;
 
 // inintalizing static variable
-int Shader::shaderLevel = Shader::LEVEL_BASIC;
+int Shader::shaderLevel = Shader::LEVEL_INTERMEDIATE;
 
 Shader::Shader(CotopaxiEngine::Entity* entity, std::string shaderName, std::string materialName)
 : entity(entity),

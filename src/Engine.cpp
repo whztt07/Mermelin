@@ -27,6 +27,7 @@
 #include "Entities/Rotor.h"
 #include "Entities/Goal.h"
 #include "Entities/Door.h"
+#include "Entities/Button.h"
 #include "Entities/GroundPlate.h"
 
 //Modules
@@ -86,23 +87,10 @@ bool Engine::load(string title)
     // creating the camera   
     camera = new Camera();
 
-    // creating light(s)
-    Light* light = sceneManager->createLight("MainLight");
-    light->setPosition(50, 50, 50);
-    light->setPowerScale(20);
-    light->setType(Light::LT_POINT);
-    light->setCastShadows(true);
-    light->setDiffuseColour(1.0, 1.0, 1.0);
-
-    // loading the modules   
-    loadModule(MODULE_INPUT);
-    loadModule(MODULE_PHYSICS);
-    loadModule(MODULE_GRAPHIC);
-    loadModule(MODULE_AUDIO);
-    loadModule(MODULE_LOGIC);
-    loadModule(MODULE_GUI);
+    loadAllModules();
 
     //Registering entities
+    registerFactoryMethod("button", &CotopaxiEngine::Button::create);
     registerFactoryMethod("goal", &CotopaxiEngine::Goal::create);
     registerFactoryMethod("woodwall", &CotopaxiEngine::WoodWall::create);
     registerFactoryMethod("rotor", &CotopaxiEngine::Rotor::create);
@@ -113,6 +101,16 @@ bool Engine::load(string title)
     registerFactoryMethod("typechanger", &CotopaxiEngine::TypeChanger::create);
     registerFactoryMethod("groundplate", &CotopaxiEngine::GroundPlate::create);
     return true;
+}
+
+void Engine::loadAllModules()
+{
+    loadModule(MODULE_INPUT);
+    loadModule(MODULE_PHYSICS);
+    loadModule(MODULE_GRAPHIC);
+    loadModule(MODULE_AUDIO);
+    loadModule(MODULE_LOGIC);
+    loadModule(MODULE_GUI);
 }
 
 bool Engine::unload(void)
@@ -132,48 +130,67 @@ void Engine::loadModule(ModuleType moduleType)
 {
     BaseModule* module = NULL;
 
-    switch (moduleType) {
-        case MODULE_AUDIO:
-        {
-            module = new AudioModule();
-            break;
+    if (moduleList[moduleType] == NULL) {
+        switch (moduleType) {
+            case MODULE_AUDIO:
+            {
+                module = new AudioModule();
+                break;
+            }
+            case MODULE_GRAPHIC:
+            {
+                module = new GraphicModule();
+                break;
+            }
+            case MODULE_INPUT:
+            {
+                module = new InputModule();
+                break;
+            }
+            case MODULE_LOGIC:
+            {
+                module = new LogicModule();
+                break;
+            }
+            case MODULE_PHYSICS:
+            {
+                module = new PhysicsModule();
+                break;
+            }
+            case MODULE_GUI:
+            {
+                module = new GUIModule();
+                break;
+            }
+            default:
+            {
+                LogManager::getSingleton().logMessage("[ENGINE]Error: Module not found");
+                return;
+            }
         }
-        case MODULE_GRAPHIC:
-        {
-            module = new GraphicModule();
-            break;
-        }
-        case MODULE_INPUT:
-        {
-            module = new InputModule();
-            break;
-        }
-        case MODULE_LOGIC:
-        {
-            module = new LogicModule();
-            break;
-        }
-        case MODULE_PHYSICS:
-        {
-            module = new PhysicsModule();
-            break;
-        }
-        case MODULE_GUI:
-        {
-            module = new GUIModule();
-            break;
-        }
-        default:
-        {
-            LogManager::getSingleton().logMessage("[ENGINE]Error: Module not found");
-            return;
-        }
-    }
 
-    if (module != NULL) {
-        module->load();
-        moduleList[moduleType] = module;
+        if (module != NULL) {
+            module->load();
+            moduleList[moduleType] = module;
+        }
     }
+}
+
+void Engine::unloadModule(ModuleType moduleType)
+{
+    moduleList[moduleType]->unload();
+    delete moduleList[moduleType];
+}
+
+void Engine::unloadAllModules()
+{
+    unloadModule(MODULE_GUI);
+    unloadModule(MODULE_LOGIC);
+    unloadModule(MODULE_AUDIO);
+    unloadModule(MODULE_GRAPHIC);
+    unloadModule(MODULE_PHYSICS);
+    unloadModule(MODULE_INPUT);
+    moduleList.clear();
 }
 
 BaseModule* Engine::getModule(ModuleType moduleType)
@@ -244,7 +261,7 @@ void loadSections(string resourceFile)
 CotopaxiEngine::Entity* Engine::getEntity(std::string name)
 {
     std::map<std::string, Entity*>::iterator it = entityList.find(name);
-    if (it != entityList.end()) {        
+    if (it != entityList.end()) {
         return it->second; //element found;
     }
 
@@ -301,7 +318,7 @@ PhysicsModule* Engine::getPhysics()
 
 GUIModule* Engine::getGUI()
 {
-	return (GUIModule*) moduleList[MODULE_GUI];
+    return (GUIModule*) moduleList[MODULE_GUI];
 }
 
 void Engine::throwEvent(const Event::EventType& type)
@@ -309,7 +326,6 @@ void Engine::throwEvent(const Event::EventType& type)
     Event event(type);
 
     std::vector<EventListener*>::iterator receiverIterator = eventTypeListenersMap[type].begin();
-
     for (; receiverIterator != eventTypeListenersMap[type].end(); ++receiverIterator) {
         (*receiverIterator)->receiveEvent(&event);
     }
@@ -349,8 +365,8 @@ CotopaxiEngine::Entity* Engine::produceEntity(std::string type, std::string name
 void Engine::pushState(GameState* gameState)
 {
     gameStates.push(gameState);
-	if (!gameStates.top()->isLoaded()) {
-		gameStates.top()->load();
+    if (!gameStates.top()->isLoaded()) {
+        gameStates.top()->load();
     }
 }
 
@@ -361,7 +377,7 @@ void Engine::popState()
 
 bool Engine::frameStarted(const Ogre::FrameEvent& evt)
 {
-	gameStates.top()->frameStarted(evt);
+    gameStates.top()->frameStarted(evt);
     std::map<int, BaseModule*>::iterator moduleIterator = moduleList.begin();
     do {
         if (!moduleIterator->second->frameStarted(evt)) {
@@ -376,7 +392,6 @@ bool Engine::frameStarted(const Ogre::FrameEvent& evt)
 bool Engine::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     std::map<int, BaseModule*>::iterator moduleIterator = moduleList.begin();
-
     do {
         if (!moduleIterator->second->frameRenderingQueued(evt)) {
             return false;
@@ -404,23 +419,21 @@ bool Engine::frameEnded(const Ogre::FrameEvent& evt)
 
 void Engine::removeEntity(CotopaxiEngine::Entity* entity)
 {
-	std::map<std::string, Entity*>::iterator toErase; 
-	try{
-		toErase = entityList.find(entity->getName());
-	} catch (std::exception& e){
-		Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove an entity");
-		toErase = entityList.end();
-	}
-	
-	if(toErase != entityList.end()){
-		try{
-			entityList.erase(toErase);
-		} 
-		catch(std::exception& e)
-		{
-			Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove an entity");
-		}
-	}
+    std::map<std::string, Entity*>::iterator toErase;
+    try {
+        toErase = entityList.find(entity->getName());
+    } catch (std::exception& e) {
+        Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove an entity");
+        toErase = entityList.end();
+    }
 
-	delete entity;
+    if (toErase != entityList.end()) {
+        try {
+            entityList.erase(toErase);
+        } catch (std::exception& e) {
+            Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove an entity");
+        }
+    }
+
+    delete entity;
 }

@@ -32,9 +32,6 @@ Goal::Goal(std::string name, Ogre::SceneNode* parentNode)
             ->createTextureUnitState("goal_color.gif");
 
     this->getOgreEntity()->setMaterial(material);
-    
-    //this->addComponent(ENGINE->getPhysics()->getComponent(this, 0,
-    //        PhysicsModule::TRIMESH, PhysicsModule::COL_GHOST, PhysicsModule::COL_PLAYER, true));
 }
 
 void Goal::receiveEvent(Event* e)
@@ -42,19 +39,12 @@ void Goal::receiveEvent(Event* e)
     if (e->getType() == Event::COLLISION_ENTER) {
         Sphere* sphere = dynamic_cast<Sphere*> (e->entity);
         if (sphere != NULL) {
-            /*sphere->getNode()->setPosition(ENGINE->getStartPosition());
-
-            Event* e = new Event(Event::TRANSLATE);
-            sphere->receiveEvent(e);*/
-
-			ENGINE->throwEvent(Event::LEVEL_END);
+            ENGINE->throwEvent(Event::LEVEL_END);
             delete e;
         }
-	} else if(e->getType() == Event::TRANSLATE)
-	{
-		ENGINE->getPhysics()->getComponent(this)->receiveEvent(e);
-	}else
-	{
+    } else if (e->getType() == Event::TRANSLATE) {
+        ENGINE->getPhysics()->getComponent(this)->receiveEvent(e);
+    } else {
         Entity::receiveEvent(e);
     }
 }

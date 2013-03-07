@@ -65,6 +65,7 @@ InputModule::~InputModule()
 {
     Ogre::WindowEventUtilities::removeWindowEventListener(ENGINE->getWindow(), this);
     windowClosed(ENGINE->getWindow());
+    unload();
 }
 
 bool InputModule::frameRenderingQueued(const Ogre::FrameEvent &evt)
@@ -444,4 +445,12 @@ int InputModule::getModifier()
         modifier |= Rocket::Core::Input::KM_ALT;
     }
     return modifier;
+}
+
+void InputModule::unload()
+{
+    for (auto &element : components) {
+        delete &element;
+    }
+    components.clear();
 }

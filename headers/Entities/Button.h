@@ -23,8 +23,11 @@
 
 #include "stdafx.h"
 #include "Entities/Entity.h"
+#include "Components/BaseComponent.h"
+#include "Components/AudioComponent.h"
 
-namespace CotopaxiEngine {
+namespace CotopaxiEngine
+{
 
     /**
      * @class Button
@@ -36,12 +39,15 @@ namespace CotopaxiEngine {
     public:
         Button(std::string name, Ogre::SceneNode* parentNode);
         virtual ~Button();
-        static Entity* create(std::string name, Ogre::SceneNode* parentNode)
-        {
+        virtual void receiveEvent(Event* e);
+
+        static Entity* create(std::string name, Ogre::SceneNode* parentNode) {
             return new Button(name, parentNode);
         }
+    private:
+        AudioComponent* audioComponent;
+        BaseComponent* trigger;
     };
 }
-
 #endif
 

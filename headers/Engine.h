@@ -121,6 +121,25 @@ namespace CotopaxiEngine {
          * @param moduleType The moduletype that needs to be loaded
          */
         void loadModule(ModuleType moduleType);
+        
+        /**
+         * @fn unloadModule
+         * Unloads the specified Module
+         * @param moduleType The moduletype that needs to be unloaded
+         */
+        void unloadModule(ModuleType moduleType);
+        
+        /**
+         * @fn loadAllModules
+         * Loads every module that exists.
+         */
+        void loadAllModules();
+        
+        /**
+         * @fn unloadAllModules
+         * Unloads every module that exists.
+         */
+        void unloadAllModules();
 
         /**
          * @fn getModule

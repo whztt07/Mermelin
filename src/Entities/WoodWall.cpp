@@ -19,6 +19,7 @@
 #include "stdafx.h"
 #include "Entities/WoodWall.h"
 #include "Entities/Sphere.h"
+#include "Modules/LogicModule.h"
 
 using namespace CotopaxiEngine;
 
@@ -26,17 +27,38 @@ WoodWall::WoodWall(std::string name, Ogre::SceneNode* parentNode)
 : Entity(name, "Wall_Wood", parentNode)
 {
     this->state = NORMAL;
+    trigger = ENGINE->getLogic()->createTrigger(this, name);
+    this->addComponent(trigger);
+    this->registerListener(Event::COLLISION_ENTER, trigger);
+    
+    audioComponent = dynamic_cast<AudioComponent*> (ENGINE->getAudio()->getComponent(this));
+    this->addComponent(audioComponent);
+    audioComponent->addSound("burning");
+    
 }
 
-void WoodWall::receiveEvent(Event event)
+WoodWall::~WoodWall()
 {
-    if (event.getType() == Event::COLLISION_ENTER) {
-        Sphere* playerSphere = dynamic_cast<Sphere*> (event.entity);
+    delete audioComponent;
+    delete trigger;
+}
+
+void WoodWall::receiveEvent(Event* event)
+{
+    if (event->getType() == Event::COLLISION_ENTER && state == NORMAL) {
+        state = BURNING;
+        audioComponent->play("burning", false);
+        trigger->receiveEvent(event);
+        
+        Sphere* playerSphere = dynamic_cast<Sphere*> (event->entity);
 
         if (playerSphere != NULL) {
             if (playerSphere->getState() == Element::FIRE) {
-                this->getNode()->getParent()->removeChild(this->getNode());
-                ENGINE->getPhysics()->removeComponent(this->getName());
+                
+                physics = dynamic_cast<PhysicsComponent*>(ENGINE->getPhysics()->getComponent(this));
+                physics->setActive(false);
+                
+                this->getNode()->getParent()->removeChild(this->getNode());                
             }
         }
     }

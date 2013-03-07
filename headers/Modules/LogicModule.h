@@ -41,12 +41,13 @@ namespace CotopaxiEngine
     class LogicModule : public BaseModule
     {
     public:
-        LogicModule();
+        virtual ~LogicModule();
         Trigger* getTrigger(std::string name);
         Condition* getTarget(Entity* parent);
         BaseComponent* createTrigger(Entity* parent, std::string name);
         BaseComponent* createTarget(Entity* parent);
         BaseComponent* getComponent(Entity* parent);
+        void unload();
     private:
         std::map<std::string, Trigger*> triggers;
         std::map<std::string, Condition*> targets;

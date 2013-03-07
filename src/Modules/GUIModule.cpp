@@ -27,9 +27,10 @@ GUIModule::GUIModule()
 :running(true){}
 
 GUIModule::~GUIModule() {
+    unload();
     delete cursor;
     delete document;
-    delete context;
+    delete context;    
 }
 
 void GUIModule::load()
@@ -385,8 +386,6 @@ void GUIModule::BuildProjectionMatrix(Ogre::Matrix4& projection_matrix)
 
     projection_matrix = Ogre::Matrix4::ZERO;
 
-
-
     // Set up matrices.
     projection_matrix[0][0] = 2.0f / ENGINE->getWindow()->getWidth();
     projection_matrix[0][3] = -1.0000000f;
@@ -492,4 +491,9 @@ void GUIModule::showMainMenu()
         document->RemoveReference();
         visible = true;
     }
+}
+
+void GUIModule::unload()
+{    
+    Rocket::Core::Shutdown();
 }

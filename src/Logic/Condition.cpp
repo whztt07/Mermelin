@@ -15,7 +15,6 @@
  * @file Condition.cpp
  * @author Eduardo Hahn Paredes
  */
-
 #include "stdafx.h"
 #include "Logic/Condition.h"
 #include "Logic/Trigger.h"

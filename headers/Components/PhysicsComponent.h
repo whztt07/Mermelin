@@ -10,14 +10,13 @@
  * You should have received a copy of the GNU General Public License along with Mermelin. 
  * Look for a file named COPYING. If it's not there, see <http://www.gnu.org/licenses/>.
  */
-
 /**
  * @file PhysicsComponent.h
  * @brief Defines physics properties of a Entity
  * 
  * This class gives the Entity access to the PhysicsModule.
  * 
- * @author Eduardo Hahn Paredes
+ * @author Patrick Joos, Eduardo Hahn Paredes
  * @todo write doxygen
  */
 
@@ -28,7 +27,8 @@
 #include "BaseComponent.h"
 #include "BulletCollision/CollisionDispatch/btGhostObject.h"
 
-namespace CotopaxiEngine {
+namespace CotopaxiEngine
+{
 
     /**
      * @class PhysicsComponent
@@ -51,7 +51,7 @@ namespace CotopaxiEngine {
         virtual void handleContact(PhysicsComponent* contact);
 
         void setComponentGravity(const Ogre::Vector3& gravity);
-        void setActive(bool active);
+		void setActive(bool active);
 
         Ogre::Entity* physicsEntity;
     protected:
@@ -65,7 +65,7 @@ namespace CotopaxiEngine {
         short mask;
     private:
         void applyPhysics(Ogre::Vector3 v);
-        void createBody();
+		void createBody();
     };
 }
 

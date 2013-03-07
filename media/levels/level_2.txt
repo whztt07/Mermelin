@@ -1,39 +1,8 @@
-fffff000000000000
-fffff000000000000
-fffff000000000000
-0fff0000000000000
-0fff0000000000000
-fffff000000000000
-fffff00000fff0000
-fffff00000fff0000
-fffffffff0fff0000
-fffffffff0fff0000
-fffffffff0fffffff
-000ffffff0fffffff
-000ffffff0fffffff
-000ffffff0fffffff
-000ffffffffffffff
-000ffffffffffffff
-000ffffffffffffff
-000ffffffffffffff
-000fffffff0000000
-
-f---f000000000000
-|000|000000000000
-ff0ff000000000000
-0|0|0000000000000
-0|0|0000000000000
-ff0ff000000000000
-|000|00000f-f0000
-|000|00000|0|0000
-|000f---f0|0|0000
-|0000000|0|0|0000
-f-----f0|0|0f---f
-000|--f0|0|00000|
-000|0000|0|00000|
-000|0000|0|00000|
-000|0000fff00000|
-000|00000ff00000|
-000|000000000000|
-000|00000f------f
-000f-----f0000000
+# game level
+Properties:
+name = Level2
+start = (0, 0, 0)
+camera = (0, 2, 0)
+Logic:
+Objects:
+f

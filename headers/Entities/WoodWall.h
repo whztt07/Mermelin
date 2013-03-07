@@ -22,7 +22,11 @@
 #ifndef WOODWALL_H
 #define	WOODWALL_H
 
-#include "Entity.h"
+#include "stdafx.h"
+#include "Entities/Entity.h"
+#include "Components/BaseComponent.h"
+#include "Components/AudioComponent.h"
+#include "Components/PhysicsComponent.h"
 
 namespace CotopaxiEngine
 {
@@ -48,6 +52,8 @@ namespace CotopaxiEngine
         };
 
         WoodWall(std::string name, Ogre::SceneNode* parentNode);
+        
+        virtual ~WoodWall();
 
         /**
          * @fn setState
@@ -71,9 +77,12 @@ namespace CotopaxiEngine
             return new WoodWall(name, parentNode);
         }
 
-        virtual void receiveEvent(Event e);
+        virtual void receiveEvent(Event* event);
     private:
+        PhysicsComponent* physics;
         WoodWallState state;
+        AudioComponent* audioComponent;
+        BaseComponent* trigger;
     };
 }
 

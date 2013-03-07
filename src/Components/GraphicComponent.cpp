@@ -24,8 +24,7 @@
 using namespace CotopaxiEngine;
 
 GraphicComponent::GraphicComponent()
-:animated(false), shaderUsage(false)
-{}
+: animated(false), shaderUsage(false) { }
 
 GraphicComponent::~GraphicComponent()
 {
@@ -66,23 +65,21 @@ void GraphicComponent::update(Ogre::Real time)
 
 void GraphicComponent::setAnimation(std::string name, bool loop)
 {
+    animated = true;
     animation = parent->getOgreEntity()->getAnimationState(name);
-    parent->getOgreEntity()->setDisplaySkeleton(true);
+    // parent->getOgreEntity()->setDisplaySkeleton(true);
 
     animation->setLoop(loop);
     animation->setEnabled(true);
-    animated = true;
-
-    this->parent->receiveEvent(new Event(Event::ANIMATION_STARTED));
 }
 
 void GraphicComponent::setShader(Shader* s)
-{    
-//    if(shaderUsage) {
-//        delete shader;
-//    }
+{
+    // if(shaderUsage) {
+    //     delete shader;
+    // }
     shader = s;
-//    shaderUsage = true;
+    // shaderUsage = true;
 }
 
 void GraphicComponent::reloadShader()

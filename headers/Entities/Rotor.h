@@ -83,7 +83,6 @@ namespace CotopaxiEngine {
         };
     private:
         bool active;
-        LogicComponent* logicComponent;
         Entity* floor;
         Entity* rotor;
         Entity* wind;

@@ -16,7 +16,6 @@
  *
  * @author Patrick Joos, Eduardo Hahn Paredes
  */
-
 #include "stdafx.h"
 #include "Components/PhysicsComponent.h"
 #include "Components/GraphicComponent.h"
@@ -56,7 +55,8 @@ void PhysicsComponent::createBody()
         BtOgre::StaticMeshToShapeConverter* converter =
                 new BtOgre::StaticMeshToShapeConverter(physicsEntity);
 
-        switch (s) {
+        switch (s)
+        {
             case PhysicsModule::BOX:
             {
                 shape = converter->createBox();
@@ -85,7 +85,8 @@ void PhysicsComponent::createBody()
             }
         }
     } else {
-        switch (s) {
+        switch (s)
+        {
             case PhysicsModule::BOX:
             {
                 shape = new btBoxShape(btVector3(0, 0, 0));
@@ -98,7 +99,7 @@ void PhysicsComponent::createBody()
             }
             case PhysicsModule::PLANE:
             {
-                shape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);                
+                shape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
                 break;
             }
             case PhysicsModule::TRIMESH:
@@ -186,7 +187,7 @@ void PhysicsComponent::receiveEvent(Event* event)
 void PhysicsComponent::handleContact(PhysicsComponent* component)
 {
     if (component == this) {
-        Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::LogMessageLevel::LML_CRITICAL, 
+        Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::LogMessageLevel::LML_CRITICAL,
                 "Comparing identical PhysicsComponent: " + this->parent->getName());
     }
 

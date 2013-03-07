@@ -40,11 +40,13 @@ Sphere::Sphere(std::string name, Ogre::SceneNode* parentNode)
             PhysicsModule::COL_BUTTON |
             PhysicsModule::COL_GHOST;
 
-    this->addComponent(ENGINE->getPhysics()->getComponent(this,
+    physics = (PhysicsComponent*) ENGINE->getPhysics()->getComponent(this,
             weight,
             PhysicsModule::SPHERE,
             PhysicsModule::COL_PLAYER,
-            colMask));
+            colMask);
+    
+    this->addComponent(physics);
 
     ((PhysicsComponent*) ENGINE->getPhysics()->getComponent(this))->setComponentGravity(Ogre::Vector3(0, -10, 0));
 
@@ -59,9 +61,11 @@ Sphere::Sphere(std::string name, Ogre::SceneNode* parentNode)
 void Sphere::receiveEvent(CotopaxiEngine::Event* event)
 {
     if (event->getType() == Event::EventType::TRANSLATE) {
-//		PhysicsComponent* comp =  dynamic_cast<PhysicsComponent*>(ENGINE->getPhysics()->getComponent(this));
-//		comp->setActive(false);
-//		comp->setActive(true);
+        
+        // HIER WEITERFAHREN!
+        
+//		physics->setActive(false);
+//		physics->setActive(true);
     } else {
         Entity::receiveEvent(event);
     }

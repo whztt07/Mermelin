@@ -15,20 +15,19 @@
  * @file GhostComponent.cpp
  * @author Patrick Joos
  */
-
 #include "stdafx.h"
 #include "Components/GhostComponent.h"
 
 using namespace CotopaxiEngine;
 
 GhostComponent::GhostComponent(btScalar mass, PhysicsModule::Shape s, short group, short mask)
-: PhysicsComponent(mass, s, group, mask) { 
-}
+: PhysicsComponent(mass, s, group, mask) { }
 
 GhostComponent::~GhostComponent()
 {
-	ENGINE->getPhysics()->removeComponent(this->parent->getName());
-	ENGINE->getPhysics()->getWorld()->removeCollisionObject(ghostObject);
+    ENGINE->getPhysics()->removeComponent(this->parent->getName());
+
+    ENGINE->getPhysics()->getWorld()->removeCollisionObject(ghostObject);
 
     delete ghostObject;
 }
@@ -134,17 +133,16 @@ void GhostComponent::checkOverlappingObjects()
 
 void GhostComponent::receiveEvent(Event* e)
 {
-	if(e->getType() == Event::TRANSLATE)
-	{
-		btTransform transform;
+    if (e->getType() == Event::TRANSLATE) {
+        btTransform transform;
 
         transform.setIdentity();
         Ogre::Vector3 position = parent->getNode()->_getDerivedPosition();
         Ogre::Quaternion orientation = parent->getNode()->_getDerivedOrientation();
 
-		transform.setOrigin(BtOgre::Convert::toBullet(position));
-		transform.setRotation(BtOgre::Convert::toBullet(orientation));
+        transform.setOrigin(BtOgre::Convert::toBullet(position));
+        transform.setRotation(BtOgre::Convert::toBullet(orientation));
 
-		ghostObject->setWorldTransform(transform);
-	}
+        ghostObject->setWorldTransform(transform);
+    }
 }

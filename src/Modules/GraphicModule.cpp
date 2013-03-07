@@ -23,7 +23,10 @@
 
 using namespace CotopaxiEngine;
 
-GraphicModule::GraphicModule() { }
+GraphicModule::~GraphicModule()
+{
+    unload();
+}
 
 BaseComponent* GraphicModule::getComponent(Entity* parent)
 {
@@ -47,6 +50,11 @@ bool GraphicModule::frameRenderingQueued(const Ogre::FrameEvent& event)
     if (ENGINE->getCamera()->isAttached()) {
         ENGINE->getCamera()->update();
     }
+    
+    std::map<std::string, GraphicComponent*>::const_iterator i;
+    for (i = components.begin(); i != components.end(); i++) {    
+            i->second->update(event.timeSinceLastFrame);
+    }
     return true;
 }
 
@@ -63,3 +71,11 @@ void GraphicModule::refreshAllShaders()
 }
 
 void GraphicModule::receiveEvent(Event* e) { }
+
+void GraphicModule::unload()
+{
+    for (auto &element : components) {
+        delete &element;
+    }
+    components.clear();
+}

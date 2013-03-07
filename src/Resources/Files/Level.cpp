@@ -252,14 +252,9 @@ void Level::readLogicLine(string line)
 
     // creating a button
     if (trim(token) == "button") {
-
         getline(tokenizer, token, ',');
         istringstream(token) >> name;
-        entity = ENGINE->createEntity(name, "Button", levelNode);
-        BaseComponent* component = ENGINE->getLogic()->createTrigger(entity, name);
-        entity->addComponent(component);
-        entity->registerListener(Event::COLLISION_ENTER, component);
-        entity->registerListener(Event::COLLISION_EXIT, component);
+        entity = ENGINE->produceEntity("button", name, levelNode);
         trigger = true;
     }
 
@@ -293,9 +288,7 @@ void Level::readLogicLine(string line)
             x += 0.4;
         }
         getline(tokenizer, token, ',');
-
-        LogicComponent* logComp = buildConditionTree(token, entity);
-        entity->addComponent(logComp);
+        entity->addComponent(buildConditionTree(token, entity));
     }
     getline(tokenizer, token, '\n');
     tempVec = readVector(token);
@@ -644,9 +637,7 @@ void Level::transform(Entity* entity, Ogre::Vector3 vec, float mass, int group,
 
     Event* e = new Event(Event::TRANSLATE);
     entity->receiveEvent(e);
-
     entityPointers.push_back(entity);
-
     delete e;
 }
 
@@ -683,7 +674,6 @@ LogicComponent* Level::buildConditionTree(std::string expression, Entity* entity
     bool first = true;
 
     while (it != expression.end()) {
-
         if (*it == ':') {
             expressionTokens.push_back(trim(token));
             token = "";

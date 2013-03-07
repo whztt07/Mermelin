@@ -25,7 +25,8 @@
 #include "Components/GraphicComponent.h"
 
 using namespace std;
-namespace CotopaxiEngine {
+namespace CotopaxiEngine
+{
     class Entity;
     class GraphicComponent;
 
@@ -35,15 +36,16 @@ namespace CotopaxiEngine {
      */
     class GraphicModule : public BaseModule
     {
-    private:
-        std::map<std::string, GraphicComponent*> components;
     public:
-        GraphicModule();
+        virtual ~GraphicModule();
         virtual bool frameRenderingQueued(const Ogre::FrameEvent& event);
         BaseComponent* getComponent(Entity* parent);
         void refreshAllShaders();
         void receiveEvent(Event* e);
         void removeComponent(std::string component);
+        void unload();
+    private:
+        std::map<std::string, GraphicComponent*> components;
     };
 }
 #endif

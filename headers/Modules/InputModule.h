@@ -67,7 +67,7 @@ namespace CotopaxiEngine {
         virtual bool mouseReleased(const MouseEvent &event, MouseButtonID id);
 
         virtual BaseComponent* getComponent(Entity *parent);
-
+        void unload();
 
     private:
         bool menuMode;

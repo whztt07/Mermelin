@@ -29,33 +29,30 @@ GroundPlate::GroundPlate(std::string name, Ogre::SceneNode* parentNode)
 : Entity(name, "Floor", parentNode)
 {
     this->getNode()->setPosition(0.0, -20.0, 0.0);
-    this->getNode()->setVisible(true);
+    this->getNode()->setVisible(false);
 
-	this->addComponent(ENGINE->getGraphic()->getComponent(this));
-    
-    this->addComponent(ENGINE->getPhysics()->getComponent(this, 0.0, 
+    this->addComponent(ENGINE->getGraphic()->getComponent(this));
+    this->addComponent(ENGINE->getPhysics()->getComponent(this, 0.0,
             PhysicsModule::PLANE, PhysicsModule::COL_GHOST, PhysicsModule::COL_PLAYER, true));
 }
 
 GroundPlate::~GroundPlate() { }
 
 void GroundPlate::receiveEvent(Event* e)
-{    
-    if (e->getType() == Event::COLLISION_ENTER) {
+{
+//    if (e->getType() == Event::COLLISION_ENTER) {
         Sphere* sphere = dynamic_cast<Sphere*> (e->entity);
-        if (sphere != NULL) {
+        if (sphere != NULL && sphere->getNode()->getPosition().y < -10 && sphere->getNode()->getPosition().y != 0) {
             sphere->getNode()->setPosition(ENGINE->getStartPosition());
             Event* e = new Event(Event::TRANSLATE);
             sphere->receiveEvent(e);
             delete e;
         }
-    } else {
+//    } else {
         Entity::receiveEvent(e);
-    }
+//    }
 
-	if(e->getType() == Event::TRANSLATE)
-	{
-		int i = 1;
-		ENGINE->getPhysics()->getComponent(this)->receiveEvent(e);
-	}
+    if (e->getType() == Event::TRANSLATE) {
+        ENGINE->getPhysics()->getComponent(this)->receiveEvent(e);
+    }
 }

@@ -22,6 +22,11 @@
 
 using namespace CotopaxiEngine;
 
+AudioModule::~AudioModule()
+{
+    unload();
+}
+
 PlaySound* AudioModule::playSound(std::string path, bool loop)
 {
     PlaySound* sound = new PlaySound(path, loop);
@@ -73,4 +78,12 @@ bool AudioModule::frameRenderingQueued(const Ogre::FrameEvent &evt)
     Ogre::Vector3 position = ENGINE->getCamera()->getNode()->_getDerivedPosition();
     sf::Listener::SetPosition(position.x, position.y, position.z);
     return true;
+}
+
+void AudioModule::unload()
+{
+    for (int i = 0; i < components.size(); i++) {
+        delete components[i];
+    }
+    components.clear();
 }

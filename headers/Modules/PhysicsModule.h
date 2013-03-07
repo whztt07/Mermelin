@@ -98,8 +98,8 @@ namespace CotopaxiEngine
         }
 
         void setDrawDebugWorld(bool draw);
-
         btDynamicsWorld* getWorld();
+        void unload();
     private:
         btDynamicsWorld* dynamics;
         BtOgre::DebugDrawer* dbgdraw;

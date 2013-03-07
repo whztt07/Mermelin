@@ -139,6 +139,7 @@ namespace CotopaxiEngine
                 bool& skipThisInvocation);
 
         void load();
+        void unload();
         void hideMainMenu();
         void showMainMenu();
 

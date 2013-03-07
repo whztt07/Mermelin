@@ -92,6 +92,7 @@ namespace CotopaxiEngine {
             return new Sphere(name, parentNode);
         };
     private:
+        PhysicsComponent* physics;
         Ogre::Light* light;
         Ogre::Vector3 lastPosition;
         Element state;
