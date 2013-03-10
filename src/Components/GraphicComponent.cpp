@@ -32,11 +32,16 @@ GraphicComponent::~GraphicComponent()
 
     if (animated) {
         delete animation;
+        animation = NULL;
     }
 
     if (shaderUsage) {
         delete shader;
+        shader = NULL;
     }
+    
+    ENGINE->getSceneManager()->destroySceneNode(parent->getNode());
+    ENGINE->getSceneManager()->destroyEntity(parent->getOgreEntity());
 }
 
 void GraphicComponent::setParent(Entity* parent)
@@ -58,8 +63,10 @@ void GraphicComponent::update(Ogre::Real time)
             Event* animationEnded = new Event(Event::ANIMATION_ENDED);
             this->parent->receiveEvent(animationEnded);
             delete animationEnded;
+            animationEnded = NULL;
         }
         delete e;
+        e = NULL;
     }
 }
 

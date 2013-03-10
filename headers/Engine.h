@@ -56,6 +56,12 @@ namespace CotopaxiEngine {
     class Engine : public Ogre::FrameListener
     {
     public:
+        
+        // Singleton: private constructor and instance
+        Engine() { }
+        static Engine* instance;
+        
+        virtual ~Engine();
 
         /**
          * @enum ModuleType
@@ -149,7 +155,6 @@ namespace CotopaxiEngine {
          */
         BaseModule* getModule(ModuleType moduleType);
 
-
         AudioModule* getAudio();
         GraphicModule* getGraphic();
         InputModule* getInput();
@@ -232,6 +237,13 @@ namespace CotopaxiEngine {
         @param entity the entity to remove
          */
         void removeEntity(Entity* entity);
+        
+        /**
+        @fn removeAllEntities
+        Removes and destroys all entieties.
+         */
+        void removeAllEntities();
+        
 
         /**
          * @fn registerFactoryMethod
@@ -332,6 +344,15 @@ namespace CotopaxiEngine {
         }
 
     private:
+        void loadSections(std::string resourceFile);
+        
+        AudioModule* audio;
+        GraphicModule* graphic;
+        InputModule* input;
+        LogicModule* logic;
+        PhysicsModule* physics;
+        GUIModule* gui;
+        
         typedef std::map<std::string, ProduceEntity> FactoryMap;
         FactoryMap factoryMap;
 
@@ -344,14 +365,10 @@ namespace CotopaxiEngine {
         Ogre::Viewport* viewPort;
         Ogre::Vector3 startPosition;
 
-        std::stack<GameState*> gameStates; // GameStates
-        std::map<int, BaseModule*> moduleList; // Modules        
-        std::map<std::string, Entity*> entityList; // Entities 
-        std::map<Event::EventType, std::vector<EventListener* >> eventTypeListenersMap; // Events
-
-        // Singleton: private constructor and instance
-        Engine() { }
-        static Engine* instance;
+        std::stack<GameState*> gameStates;
+        std::map<int, BaseModule*> modules;       
+        std::map<std::string, Entity*> entities;
+        std::map<Event::EventType, std::vector<EventListener* >> eventListeners;
     };
 }
 

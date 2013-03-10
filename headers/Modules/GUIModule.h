@@ -153,7 +153,7 @@ namespace CotopaxiEngine
             return context;
         }
 
-        bool frameRenderingQueued(const Ogre::FrameEvent& e);
+        bool update(const Ogre::FrameEvent& e);
 
         bool isVisible() const {
             return visible;

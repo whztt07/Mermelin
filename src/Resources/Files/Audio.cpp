@@ -52,13 +52,17 @@ void Audio::loadImpl()
     // getting the binary file contents
     stream->read(&bytes[0], bytes.size());
 
-    sf::SoundBuffer* buffer = new sf::SoundBuffer();
+    buffer = new sf::SoundBuffer();
     buffer->LoadFromMemory(&bytes[0], bytes.size());
 
     sound = new sf::Sound(*buffer);
 }
 
-void Audio::unloadImpl() { }
+void Audio::unloadImpl() 
+{
+    delete buffer;
+    delete sound;
+}
 
 size_t Audio::calculateSize() const
 {

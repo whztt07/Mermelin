@@ -64,9 +64,8 @@ void PlayState::load()
 void PlayState::loadNext()
 {
     LevelManager::getSingleton().unload("level_" + std::to_string(((long double) level)) + ".txt");
-    ENGINE->getSceneManager()->clearScene();
-    ENGINE->unloadAllModules();
-    ENGINE->loadAllModules();
+    ENGINE->removeAllEntities();
+    ENGINE->getSceneManager()->clearScene();    
     level++;
     load();
 }
@@ -84,6 +83,5 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
         loadNext();
         changeLevel = false;
     }
-
     return true;
 }

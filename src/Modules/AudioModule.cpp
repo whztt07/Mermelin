@@ -44,11 +44,13 @@ PlayMusic* AudioModule::playMusic(std::string path, bool loop)
 void AudioModule::stopSound(PlaySound* sound)
 {
     delete sound;
+    sound = NULL;
 }
 
 void AudioModule::stopMusic(PlayMusic* music)
 {
     delete music;
+    music = NULL;
 }
 
 BaseComponent* AudioModule::getComponent(Entity* parent)
@@ -73,7 +75,7 @@ void AudioModule::setGlobalVolume(float volume)
     sf::Listener::SetGlobalVolume(internalVolume);
 }
 
-bool AudioModule::frameRenderingQueued(const Ogre::FrameEvent &evt)
+bool AudioModule::update(const Ogre::FrameEvent &evt)
 {
     Ogre::Vector3 position = ENGINE->getCamera()->getNode()->_getDerivedPosition();
     sf::Listener::SetPosition(position.x, position.y, position.z);
@@ -84,6 +86,7 @@ void AudioModule::unload()
 {
     for (int i = 0; i < components.size(); i++) {
         delete components[i];
+        components[i] = NULL;
     }
     components.clear();
 }

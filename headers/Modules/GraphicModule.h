@@ -38,7 +38,7 @@ namespace CotopaxiEngine
     {
     public:
         virtual ~GraphicModule();
-        virtual bool frameRenderingQueued(const Ogre::FrameEvent& event);
+        virtual bool update(const Ogre::FrameEvent& event);
         BaseComponent* getComponent(Entity* parent);
         void refreshAllShaders();
         void receiveEvent(Event* e);

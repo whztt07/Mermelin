@@ -28,6 +28,8 @@ Condition::~Condition()
 {
     delete triggers;
     delete subconditions;
+    triggers = NULL;
+    subconditions = NULL;
 }
 
 void Condition::addTrigger(Trigger* trigger)

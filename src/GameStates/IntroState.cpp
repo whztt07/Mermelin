@@ -29,6 +29,7 @@ IntroState::IntroState() { }
 IntroState::~IntroState()
 {
     delete rect;
+    rect = NULL;
 }
 
 void IntroState::load()

@@ -45,7 +45,7 @@ void GraphicModule::removeComponent(std::string componentName)
     }
 }
 
-bool GraphicModule::frameRenderingQueued(const Ogre::FrameEvent& event)
+bool GraphicModule::update(const Ogre::FrameEvent& event)
 {
     if (ENGINE->getCamera()->isAttached()) {
         ENGINE->getCamera()->update();
@@ -74,8 +74,9 @@ void GraphicModule::receiveEvent(Event* e) { }
 
 void GraphicModule::unload()
 {
-    for (auto &element : components) {
-        delete &element;
+    std::map<std::string, GraphicComponent*>::iterator i;
+    for (i = components.begin(); i != components.end(); i++) {
+        components.erase(i);
     }
     components.clear();
 }

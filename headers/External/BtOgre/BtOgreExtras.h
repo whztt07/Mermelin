@@ -211,6 +211,7 @@ namespace BtOgre
             Ogre::MaterialManager::getSingleton().remove("BtOgre/DebugLines");
             Ogre::ResourceGroupManager::getSingleton().destroyResourceGroup("BtOgre");
             delete mLineDrawer;
+            mLineDrawer = NULL;
         }
 
         void step() {
@@ -258,8 +259,3 @@ namespace BtOgre
     };
 }
 #endif
-
-
-
-
-

@@ -639,6 +639,7 @@ void Level::transform(Entity* entity, Ogre::Vector3 vec, float mass, int group,
     entity->receiveEvent(e);
     entityPointers.push_back(entity);
     delete e;
+    e = NULL;
 }
 
 Ogre::Vector3 Level::readVector(string vectorString)

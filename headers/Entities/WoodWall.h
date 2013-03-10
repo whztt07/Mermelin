@@ -24,12 +24,13 @@
 
 #include "stdafx.h"
 #include "Entities/Entity.h"
-#include "Components/BaseComponent.h"
-#include "Components/AudioComponent.h"
-#include "Components/PhysicsComponent.h"
 
 namespace CotopaxiEngine
-{
+{    
+    // forward declarations
+    class LogicComponent;
+    class PhysicsComponent;
+    class AudioComponent;
 
     /**
      * @class WoodWall

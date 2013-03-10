@@ -25,7 +25,8 @@ namespace BtOgre {
         Ogre::Vector3* tmp_vert = new Ogre::Vector3[mVertexCount];
         if (mVertexBuffer) {
             memcpy(tmp_vert, mVertexBuffer, sizeof (Vector3) * prev_size);
-            delete[] mVertexBuffer;
+            delete[] mVertexBuffer; 
+            mVertexBuffer = NULL;
         }
         mVertexBuffer = tmp_vert;
 
@@ -69,6 +70,7 @@ namespace BtOgre {
         if (mVertexBuffer) {
             memcpy(tmp_vert, mVertexBuffer, sizeof (Vector3) * prev_size);
             delete[] mVertexBuffer;
+            mVertexBuffer = NULL;
         }
         mVertexBuffer = tmp_vert;
 
@@ -145,6 +147,7 @@ namespace BtOgre {
         if (mIndexBuffer) {
             memcpy(tmp_ind, mIndexBuffer, sizeof (unsigned int) * prev_size);
             delete[] mIndexBuffer;
+            mIndexBuffer = NULL;
         }
         mIndexBuffer = tmp_ind;
 
@@ -341,14 +344,18 @@ namespace BtOgre {
     {
         delete[] mVertexBuffer;
         delete[] mIndexBuffer;
+        mVertexBuffer = NULL;
+        mIndexBuffer = NULL;
 
         if (mBoneIndex) {
             for (BoneIndex::iterator i = mBoneIndex->begin();
                     i != mBoneIndex->end();
                     ++i) {
                 delete i->second;
+                i->second = NULL;
             }
             delete mBoneIndex;
+            mBoneIndex = NULL;
         }
     }
 
@@ -471,6 +478,7 @@ namespace BtOgre {
     AnimatedMeshToShapeConverter::~AnimatedMeshToShapeConverter()
     {
         delete[] mTransformedVerticesTemp;
+        mTransformedVerticesTemp = NULL;
     }
 
     void AnimatedMeshToShapeConverter::addEntity(Entity *entity, const Matrix4 &transform)
@@ -563,11 +571,11 @@ namespace BtOgre {
 
         vertex_count = (unsigned int) i->second->size() + 1;
         if (vertex_count > mTransformedVerticesTempSize) {
-            if (mTransformedVerticesTemp)
+            if (mTransformedVerticesTemp) {
                 delete[] mTransformedVerticesTemp;
-
+                mTransformedVerticesTemp = NULL;
+            }
             mTransformedVerticesTemp = new Ogre::Vector3[vertex_count];
-
         }
 
         vertices = mTransformedVerticesTemp;
@@ -708,6 +716,8 @@ namespace BtOgre {
     {
         delete mRenderOp.vertexData;
         delete mRenderOp.indexData;
+        mRenderOp.vertexData = NULL;
+        mRenderOp.indexData = NULL;
     }
 
     void DynamicRenderable::initialize(RenderOperation::OperationType operationType,

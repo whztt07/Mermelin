@@ -26,10 +26,9 @@ GhostComponent::GhostComponent(btScalar mass, PhysicsModule::Shape s, short grou
 GhostComponent::~GhostComponent()
 {
     ENGINE->getPhysics()->removeComponent(this->parent->getName());
-
     ENGINE->getPhysics()->getWorld()->removeCollisionObject(ghostObject);
-
     delete ghostObject;
+    ghostObject = NULL;
 }
 
 void GhostComponent::setParent(Entity* entity)
@@ -124,6 +123,7 @@ void GhostComponent::checkOverlappingObjects()
             exitEvent->entity = exitCollision;
             parent->receiveEvent(exitEvent);
             delete exitEvent;
+            exitEvent = NULL;
         }
         //@todo delete events after sending them. Right now they all remain on the heap
     }

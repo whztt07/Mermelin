@@ -37,6 +37,7 @@ std::string Trigger::getName() const
 Trigger::~Trigger()
 {
     delete targets;
+    targets = NULL;
 }
 
 void Trigger::addTarget(Condition* condition)

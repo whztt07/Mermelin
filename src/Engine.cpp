@@ -42,12 +42,14 @@
 #include "Resources/Managers/AudioManager.h"
 #include "GameStates/IntroState.h"
 
-
 using namespace std;
 using namespace CotopaxiEngine;
 using namespace Ogre;
 
-void loadSections(string resourceFile);
+Engine::~Engine()
+{
+    unload();
+}
 
 bool Engine::load(string title)
 {
@@ -115,6 +117,7 @@ void Engine::loadAllModules()
 
 bool Engine::unload(void)
 {
+    unloadAllModules();
     delete Ogre::ResourceGroupManager::getSingleton()._getResourceManager("Level");
     return true;
 }
@@ -130,56 +133,63 @@ void Engine::loadModule(ModuleType moduleType)
 {
     BaseModule* module = NULL;
 
-    if (moduleList[moduleType] == NULL) {
+    if (modules[moduleType] == NULL) {
         switch (moduleType) {
             case MODULE_AUDIO:
             {
-                module = new AudioModule();
+                audio = new AudioModule();
+                module = audio;
                 break;
             }
             case MODULE_GRAPHIC:
             {
-                module = new GraphicModule();
+                graphic = new GraphicModule();
+                module = graphic;
                 break;
             }
             case MODULE_INPUT:
             {
-                module = new InputModule();
+                input = new InputModule();
+                module = input;
                 break;
             }
             case MODULE_LOGIC:
             {
-                module = new LogicModule();
+                logic = new LogicModule();
+                module = logic;
                 break;
             }
             case MODULE_PHYSICS:
             {
-                module = new PhysicsModule();
+                physics = new PhysicsModule();
+                module = physics;
                 break;
             }
             case MODULE_GUI:
             {
-                module = new GUIModule();
+                gui = new GUIModule();
+                module = gui;
                 break;
             }
             default:
             {
-                LogManager::getSingleton().logMessage("[ENGINE]Error: Module not found");
+                LogManager::getSingleton().logMessage("[ENGINE]: There's no such module");
                 return;
             }
         }
 
         if (module != NULL) {
             module->load();
-            moduleList[moduleType] = module;
+            modules[moduleType] = module;
         }
     }
 }
 
 void Engine::unloadModule(ModuleType moduleType)
 {
-    moduleList[moduleType]->unload();
-    delete moduleList[moduleType];
+    modules[moduleType]->unload();
+    delete modules[moduleType];
+    modules[moduleType] = NULL;
 }
 
 void Engine::unloadAllModules()
@@ -190,15 +200,15 @@ void Engine::unloadAllModules()
     unloadModule(MODULE_GRAPHIC);
     unloadModule(MODULE_PHYSICS);
     unloadModule(MODULE_INPUT);
-    moduleList.clear();
+    modules.clear();
 }
 
 BaseModule* Engine::getModule(ModuleType moduleType)
 {
     BaseModule* ptr;
-    ptr = moduleList[moduleType];
+    ptr = modules[moduleType];
     if (!ptr) {
-        LogManager::getSingleton().logMessage(LML_NORMAL, "[ENGINE]: MODULE");
+        LogManager::getSingleton().logMessage(LML_NORMAL, "[ENGINE]: Module not in list");
     }
     return ptr;
 }
@@ -236,7 +246,7 @@ Root* Engine::getRoot() const
     return root;
 }
 
-void loadSections(string resourceFile)
+void Engine::loadSections(string resourceFile)
 {
     ConfigFile cf;
     cf.load(resourceFile);
@@ -260,8 +270,8 @@ void loadSections(string resourceFile)
 
 CotopaxiEngine::Entity* Engine::getEntity(std::string name)
 {
-    std::map<std::string, Entity*>::iterator it = entityList.find(name);
-    if (it != entityList.end()) {
+    std::map<std::string, Entity*>::iterator it = entities.find(name);
+    if (it != entities.end()) {
         return it->second; //element found;
     }
 
@@ -273,11 +283,11 @@ CotopaxiEngine::Entity* Engine::createEntity(std::string name, std::string meshN
 {
     if (getEntity(name) == NULL) {
         CotopaxiEngine::Entity* entityToCreate = new Entity(name, meshName, parentNode);
-        entityList[name] = entityToCreate;
-        return entityList[name];
+        entities[name] = entityToCreate;
+        return entities[name];
     }
 
-    LogManager::getSingleton().logMessage(LML_TRIVIAL, "[ENGINE] Entity already exists", true);
+    LogManager::getSingleton().logMessage(LML_TRIVIAL, "[ENGINE]: Entity already exists", true);
     return NULL;
 }
 
@@ -293,47 +303,47 @@ CotopaxiEngine::Entity* Engine::createEntity(std::string name)
 
 AudioModule* Engine::getAudio()
 {
-    return (AudioModule*) moduleList[MODULE_AUDIO];
+    return audio;
 }
 
 GraphicModule* Engine::getGraphic()
 {
-    return (GraphicModule*) moduleList[MODULE_GRAPHIC];
+    return graphic;
 }
 
 InputModule* Engine::getInput()
 {
-    return (InputModule*) moduleList[MODULE_INPUT];
+    return input;
 }
 
 LogicModule* Engine::getLogic()
 {
-    return (LogicModule*) moduleList[MODULE_LOGIC];
+    return logic;
 }
 
 PhysicsModule* Engine::getPhysics()
 {
-    return (PhysicsModule*) moduleList[MODULE_PHYSICS];
+    return physics;
 }
 
 GUIModule* Engine::getGUI()
 {
-    return (GUIModule*) moduleList[MODULE_GUI];
+    return gui;
 }
 
 void Engine::throwEvent(const Event::EventType& type)
 {
     Event event(type);
 
-    std::vector<EventListener*>::iterator receiverIterator = eventTypeListenersMap[type].begin();
-    for (; receiverIterator != eventTypeListenersMap[type].end(); ++receiverIterator) {
-        (*receiverIterator)->receiveEvent(&event);
+    std::vector<EventListener*>::iterator i;
+    for (i = eventListeners[type].begin(); i != eventListeners[type].end(); ++i) {
+        (*i)->receiveEvent(&event);
     }
 }
 
 void Engine::registerForEventType(CotopaxiEngine::EventListener* entity, const Event::EventType& type)
 {
-    eventTypeListenersMap[type].push_back(entity);
+    eventListeners[type].push_back(entity);
 }
 
 void Engine::registerFactoryMethod(std::string name, ProduceEntity prdEnt)
@@ -344,16 +354,16 @@ void Engine::registerFactoryMethod(std::string name, ProduceEntity prdEnt)
 CotopaxiEngine::Entity* Engine::produceEntity(std::string type, std::string name,
         Ogre::SceneNode* parentNode)
 {
-    FactoryMap::iterator it = factoryMap.find(type);
+    FactoryMap::iterator i = factoryMap.find(type);
 
-    if (it != factoryMap.end()) {
-        Entity* entity = it->second(name, parentNode);
+    if (i != factoryMap.end()) {
+        Entity* entity = i->second(name, parentNode);
         entity->setParentNode(parentNode);
         entity->setName(name);
 
-        entityList[name] = entity;
+        entities[name] = entity;
 
-        return entityList[name];
+        return entities[name];
     }
 
     LogManager::getSingleton().logMessage(LML_TRIVIAL, "[ENGINE] Method to create " + name
@@ -377,63 +387,72 @@ void Engine::popState()
 
 bool Engine::frameStarted(const Ogre::FrameEvent& evt)
 {
-    gameStates.top()->frameStarted(evt);
-    std::map<int, BaseModule*>::iterator moduleIterator = moduleList.begin();
+    
+    std::map<int, BaseModule*>::iterator i = modules.begin();
     do {
-        if (!moduleIterator->second->frameStarted(evt)) {
+        if (!i->second->preUpdate(evt)) {
             return false;
         }
-        moduleIterator++;
-    } while (moduleIterator != moduleList.end());
+        i++;
+    } while (i != modules.end());
 
     return true;
 }
 
 bool Engine::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-    std::map<int, BaseModule*>::iterator moduleIterator = moduleList.begin();
+    std::map<int, BaseModule*>::iterator i = modules.begin();
     do {
-        if (!moduleIterator->second->frameRenderingQueued(evt)) {
+        if (!i->second->update(evt)) {
             return false;
         }
-
-        moduleIterator++;
-    } while (moduleIterator != moduleList.end());
+        i++;
+    } while (i != modules.end());
 
     return true;
 }
 
 bool Engine::frameEnded(const Ogre::FrameEvent& evt)
 {
-    std::map<int, BaseModule*>::iterator moduleIterator = moduleList.begin();
+    std::map<int, BaseModule*>::iterator i = modules.begin();
 
     do {
-        if (!moduleIterator->second->frameEnded(evt)) {
+        if (!i->second->postUpdate(evt)) {
             return false;
         }
-        moduleIterator++;
-    } while (moduleIterator != moduleList.end());
+        i++;
+    } while (i != modules.end());
 
     return true;
 }
 
+void Engine::removeAllEntities()
+{
+    std::map<std::string, Entity*>::iterator i;
+    for(i = entities.begin(); i != entities.end(); i++) {
+        removeEntity(i->second);
+    }
+}
+
 void Engine::removeEntity(CotopaxiEngine::Entity* entity)
 {
-    std::map<std::string, Entity*>::iterator toErase;
+    std::map<std::string, Entity*>::iterator i;
     try {
-        toErase = entityList.find(entity->getName());
+        i = entities.find(entity->getName());
     } catch (std::exception& e) {
         Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove an entity");
-        toErase = entityList.end();
+        i = entities.end();
     }
 
-    if (toErase != entityList.end()) {
+    if (i != entities.end()) {
         try {
-            entityList.erase(toErase);
+            entities.erase(i);
+            std::cout << "helloooo mon petit!\n";
         } catch (std::exception& e) {
             Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove an entity");
         }
     }
 
     delete entity;
+    entity = NULL;
 }

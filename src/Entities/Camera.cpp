@@ -78,6 +78,7 @@ void Camera::setOffset(Ogre::Vector3 offset)
 Camera::~Camera()
 {
     delete camera;
+    camera = NULL;
 }
 
 void Camera::update()

@@ -53,7 +53,7 @@ namespace CotopaxiEngine {
         InputModule(void);
         virtual ~InputModule();
 
-        virtual bool frameRenderingQueued(const Ogre::FrameEvent &evt);
+        virtual bool update(const Ogre::FrameEvent &evt);
         virtual void windowResized(Ogre::RenderWindow *rw);
         virtual void windowClosed(Ogre::RenderWindow *rw);
 

@@ -17,12 +17,13 @@
  */
 #include "stdafx.h"
 #include "Engine.h"
-#include "Components/GraphicComponent.h"
 #include "Modules/GraphicModule.h"
 #include "Entities/Door.h"
 #include "Logic/Trigger.h"
 #include "Modules/PhysicsModule.h"
 #include "Components/PhysicsComponent.h"
+#include "Components/GraphicComponent.h"
+#include "Components/AudioComponent.h"
 
 using namespace CotopaxiEngine;
 
@@ -39,7 +40,11 @@ Door::Door(std::string name, Ogre::SceneNode* parentNode)
     rightDoor->addComponent(ENGINE->getPhysics()->getComponent(rightDoor, 0, PhysicsModule::TRIMESH, PhysicsModule::COL_STATIC, PhysicsModule::COL_PLAYER, false));
 
 	leftDoor->registerListener(Event::ANIMATION_ENDED, this);
-	leftDoor->registerListener(Event::ANIMATION_ENDED, this);    
+	leftDoor->registerListener(Event::ANIMATION_ENDED, this);
+    
+    audioComponent = dynamic_cast<AudioComponent*> (ENGINE->getAudio()->getComponent(this));
+    this->addComponent(audioComponent);
+    audioComponent->addSound("door");
 }
 
 Door::~Door()
@@ -55,6 +60,7 @@ void Door::open()
     state = OPENING;
     leftDoor->getGraphicComponent()->setAnimation("OpenLeftDoor");
     rightDoor->getGraphicComponent()->setAnimation("OpenRightDoor");
+    audioComponent->play("door", false);
 }
 
 void Door::receiveEvent(Event* event)
@@ -81,6 +87,7 @@ void Door::receiveEvent(Event* event)
         leftDoor->receiveEvent(e);
         rightDoor->receiveEvent(e);
         delete e;
+        e = NULL;
     }
 }
 

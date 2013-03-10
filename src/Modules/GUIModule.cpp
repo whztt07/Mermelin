@@ -30,7 +30,10 @@ GUIModule::~GUIModule() {
     unload();
     delete cursor;
     delete document;
-    delete context;    
+    delete context;
+    cursor = NULL;
+    document = NULL;
+    context = NULL;
 }
 
 void GUIModule::load()
@@ -224,6 +227,10 @@ void GUIModule::ReleaseCompiledGeometry(Rocket::Core::CompiledGeometryHandle geo
     delete ogre3d_geometry->render_operation.vertexData;
     delete ogre3d_geometry->render_operation.indexData;
     delete ogre3d_geometry;
+    ogre3d_geometry->render_operation.vertexData = NULL;
+    ogre3d_geometry->render_operation.indexData = NULL;
+    ogre3d_geometry = NULL;
+    
 }
 
 void GUIModule::EnableScissorRegion(bool enable)
@@ -395,7 +402,7 @@ void GUIModule::BuildProjectionMatrix(Ogre::Matrix4& projection_matrix)
     projection_matrix[3][3] = 1.0000000f;
 }
 
-bool GUIModule::frameRenderingQueued(const Ogre::FrameEvent& e)
+bool GUIModule::update(const Ogre::FrameEvent& e)
 {
     return running;
 }
@@ -416,6 +423,7 @@ void GUIModule::Close(Rocket::Core::FileHandle file)
 
     Ogre::DataStreamPtr* pstream = (Ogre::DataStreamPtr*)(file);
     delete pstream;
+    pstream = NULL;
 }
 
 size_t GUIModule::Read(void* buffer, size_t size, Rocket::Core::FileHandle file)
@@ -494,6 +502,9 @@ void GUIModule::showMainMenu()
 }
 
 void GUIModule::unload()
-{    
+{
+    Rocket::Core::GetContext("main")->UnloadAllDocuments();
+    Rocket::Core::GetContext("main")->UnloadAllMouseCursors();
+    Rocket::Core::GetContext("main")->RemoveReference();
     Rocket::Core::Shutdown();
 }

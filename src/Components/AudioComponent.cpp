@@ -28,7 +28,9 @@ AudioComponent::~AudioComponent()
     std::map<std::string, Audio*>::iterator i;
     for (i = audioList.begin(); i != audioList.end(); i++) {
         delete i->second;
+        i->second = NULL;
     }
+    audioList.clear();
 }
 
 bool AudioComponent::addSound(std::string soundName)

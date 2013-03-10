@@ -68,7 +68,7 @@ InputModule::~InputModule()
     unload();
 }
 
-bool InputModule::frameRenderingQueued(const Ogre::FrameEvent &evt)
+bool InputModule::update(const Ogre::FrameEvent &evt)
 {
     mouse->capture();
     key->capture();
@@ -449,8 +449,9 @@ int InputModule::getModifier()
 
 void InputModule::unload()
 {
-    for (auto &element : components) {
-        delete &element;
+    std::vector<InputComponent*>::iterator i;
+    for (i = components.begin(); i != components.end(); i++) {        
+        components.erase(i);
     }
     components.clear();
 }

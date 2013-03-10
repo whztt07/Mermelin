@@ -61,12 +61,13 @@ BaseComponent* LogicModule::getComponent(Entity* parent)
 
 void LogicModule::unload()
 {
-    for (auto &element : triggers) {
-        delete &element;
+    for (std::map<std::string, Trigger*>::iterator i = triggers.begin(); i != triggers.end(); i++) {
+        triggers.erase(i);
     }
     triggers.clear();
-    for (auto &element : targets) {
-        delete &element;
+
+    for (std::map<std::string, Condition*>::iterator i = targets.begin(); i != targets.end(); i++) {
+        targets.erase(i);
     }
     targets.clear();
 }

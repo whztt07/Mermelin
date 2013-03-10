@@ -56,15 +56,15 @@ namespace CotopaxiEngine {
          */
         virtual BaseComponent* getComponent(Entity* entity) = 0;
         virtual void removeComponent(std::string component) { };
-        virtual bool frameStarted(const Ogre::FrameEvent& evt)
+        virtual bool preUpdate(const Ogre::FrameEvent& evt)
         {
             return true;
         };
-        virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt)
+        virtual bool update(const Ogre::FrameEvent& evt)
         {
             return true;
         };
-        virtual bool frameEnded(const Ogre::FrameEvent& evt)
+        virtual bool postUpdate(const Ogre::FrameEvent& evt)
         {
             return true;
         };

@@ -45,6 +45,7 @@ Entity::~Entity()
     ComponentVector::iterator i;
     for (i = components.begin(); i != components.end(); i++) {
         delete *i;
+        *i = NULL;
     }
 }
 

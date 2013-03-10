@@ -84,9 +84,9 @@ namespace CotopaxiEngine
         PhysicsModule();
         virtual ~PhysicsModule();
 
-        virtual bool frameRenderingQueued(const Ogre::FrameEvent &evt);
-        virtual bool frameStarted(const Ogre::FrameEvent& evt);
-        virtual bool frameEnded(const Ogre::FrameEvent& evt);
+        virtual bool update(const Ogre::FrameEvent &evt);
+        virtual bool preUpdate(const Ogre::FrameEvent& evt);
+        virtual bool postUpdate(const Ogre::FrameEvent& evt);
         virtual BaseComponent* getComponent(Entity* parent);
         virtual BaseComponent* getComponent(Entity* parent, float mass, Shape,
                 int group = COL_NOTHING, int mask = COL_NOCOLL, bool hasTrigger = false);

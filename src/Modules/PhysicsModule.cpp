@@ -47,9 +47,15 @@ PhysicsModule::~PhysicsModule()
     delete broadphase;
     delete dbgdraw;
     delete dynamics;
+    solver = NULL;
+    dispatcher = NULL;
+    config = NULL;
+    broadphase = NULL;
+    dbgdraw = NULL;
+    dynamics = NULL;
 }
 
-bool PhysicsModule::frameStarted(const Ogre::FrameEvent&evt)
+bool PhysicsModule::preUpdate(const Ogre::FrameEvent&evt)
 {
     for (std::map<std::string, GhostComponent*>::iterator it = ghosts.begin();
             it != ghosts.end(); it++) {
@@ -59,7 +65,7 @@ bool PhysicsModule::frameStarted(const Ogre::FrameEvent&evt)
     return true;
 }
 
-bool PhysicsModule::frameEnded(const Ogre::FrameEvent&evt)
+bool PhysicsModule::postUpdate(const Ogre::FrameEvent&evt)
 {
     dynamics->debugDrawWorld();
     dbgdraw->setDebugMode(ENGINE->getState() == Engine::STATE_DEBUGING);
@@ -67,7 +73,7 @@ bool PhysicsModule::frameEnded(const Ogre::FrameEvent&evt)
     return true;
 }
 
-bool PhysicsModule::frameRenderingQueued(const Ogre::FrameEvent& evt)
+bool PhysicsModule::update(const Ogre::FrameEvent& evt)
 {
     if (ENGINE->getState() == ENGINE->STATE_RUNNING 
             || ENGINE->getState() == ENGINE->STATE_DEBUGING) {
@@ -141,8 +147,9 @@ void PhysicsModule::removeComponent(std::string component)
 
 void PhysicsModule::unload()
 {    
-    for (auto &element : components) {
-        delete &element;
+    std::map<std::string, PhysicsComponent*>::iterator i;
+    for (i = components.begin(); i != components.end(); i++) {
+        components.erase(i);
     }
     components.clear();
 }

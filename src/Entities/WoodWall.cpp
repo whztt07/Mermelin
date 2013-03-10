@@ -20,6 +20,8 @@
 #include "Entities/WoodWall.h"
 #include "Entities/Sphere.h"
 #include "Modules/LogicModule.h"
+#include "Components/PhysicsComponent.h"
+#include "Components/AudioComponent.h"
 
 using namespace CotopaxiEngine;
 
@@ -34,26 +36,29 @@ WoodWall::WoodWall(std::string name, Ogre::SceneNode* parentNode)
     audioComponent = dynamic_cast<AudioComponent*> (ENGINE->getAudio()->getComponent(this));
     this->addComponent(audioComponent);
     audioComponent->addSound("burning");
-    
+    audioComponent->addSound("wood");
 }
 
 WoodWall::~WoodWall()
 {
     delete audioComponent;
     delete trigger;
+    audioComponent = NULL;
+    trigger = NULL;
 }
 
 void WoodWall::receiveEvent(Event* event)
 {
-    if (event->getType() == Event::COLLISION_ENTER && state == NORMAL) {
-        state = BURNING;
-        audioComponent->play("burning", false);
+    if (event->getType() == Event::COLLISION_ENTER && state == NORMAL) { 
         trigger->receiveEvent(event);
+        audioComponent->play("wood", false);
         
         Sphere* playerSphere = dynamic_cast<Sphere*> (event->entity);
 
         if (playerSphere != NULL) {
             if (playerSphere->getState() == Element::FIRE) {
+                state = BURNING;      
+                audioComponent->play("burning", false);
                 
                 physics = dynamic_cast<PhysicsComponent*>(ENGINE->getPhysics()->getComponent(this));
                 physics->setActive(false);

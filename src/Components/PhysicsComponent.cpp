@@ -36,6 +36,8 @@ PhysicsComponent::~PhysicsComponent()
     ENGINE->getPhysics()->removeComponent(this->parent->getName());
     delete body;
     delete shape;
+    body = NULL;
+    shape = NULL;
 }
 
 void PhysicsComponent::setParent(Entity* parent)

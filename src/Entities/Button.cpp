@@ -39,6 +39,8 @@ Button::~Button()
 {
     delete audioComponent;
     delete trigger;
+    audioComponent = NULL;
+    trigger = NULL;
 }
 
 void Button::receiveEvent(Event* event)

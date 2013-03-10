@@ -47,6 +47,7 @@ void GroundPlate::receiveEvent(Event* e)
             Event* e = new Event(Event::TRANSLATE);
             sphere->receiveEvent(e);
             delete e;
+            e = NULL;
         }
 //    } else {
         Entity::receiveEvent(e);

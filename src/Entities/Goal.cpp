@@ -41,6 +41,7 @@ void Goal::receiveEvent(Event* e)
         if (sphere != NULL) {
             ENGINE->throwEvent(Event::LEVEL_END);
             delete e;
+            e = NULL;
         }
     } else if (e->getType() == Event::TRANSLATE) {
         ENGINE->getPhysics()->getComponent(this)->receiveEvent(e);

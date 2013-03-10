@@ -43,6 +43,8 @@ namespace CotopaxiEngine
         virtual ~PlaySound() {
             delete sound;
             delete buffer;
+            sound = NULL;
+            buffer = NULL;
         }
 
         void play() {
@@ -84,6 +86,7 @@ namespace CotopaxiEngine
 
         virtual ~PlayMusic() {
             delete music;
+            music = NULL;
         }
 
         void play() {
@@ -160,7 +163,7 @@ namespace CotopaxiEngine
         void unload();
         
         BaseComponent* getComponent(Entity* entity);
-        virtual bool frameRenderingQueued(const Ogre::FrameEvent &evt);
+        virtual bool update(const Ogre::FrameEvent &evt);
 
     private:
         std::vector<AudioComponent*> components;

@@ -25,9 +25,11 @@
 #include "Entity.h"
 
 namespace CotopaxiEngine {
+    
     // forward declarations
     class LogicComponent;
     class PhysicsComponent;
+    class AudioComponent;
 
     /**
      * @class Door
@@ -100,6 +102,7 @@ namespace CotopaxiEngine {
         };
 
     private:
+        AudioComponent* audioComponent;
         DoorState state;
         LogicComponent* logicComponent;
         Entity* leftDoor;

@@ -69,6 +69,9 @@ Rotor::~Rotor()
     delete wind;
     delete rotor;
     delete floor;
+    wind = NULL;
+    rotor = NULL;
+    floor = NULL;
 }
 
 void Rotor::turnOn()
