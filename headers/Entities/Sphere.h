@@ -90,13 +90,20 @@ namespace CotopaxiEngine {
         static Entity* create(std::string name, Ogre::SceneNode* parentNode)
         {
             return new Sphere(name, parentNode);
+        }
+
+        PhysicsComponent* getPhysics() const
+        {
+            return physics;
         };
-    private:
+    private:        
         PhysicsComponent* physics;
         Ogre::Light* light;
         Ogre::Vector3 lastPosition;
         Element state;
         int weight;
+        
+        void loadPhysics();
     };
 }
 

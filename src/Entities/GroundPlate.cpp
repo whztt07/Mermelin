@@ -40,20 +40,10 @@ GroundPlate::~GroundPlate() { }
 
 void GroundPlate::receiveEvent(Event* e)
 {
-//    if (e->getType() == Event::COLLISION_ENTER) {
-        Sphere* sphere = dynamic_cast<Sphere*> (e->entity);
-        if (sphere != NULL && sphere->getNode()->getPosition().y < -10 && sphere->getNode()->getPosition().y != 0) {
-            sphere->getNode()->setPosition(ENGINE->getStartPosition());
-            Event* e = new Event(Event::TRANSLATE);
-            sphere->receiveEvent(e);
-            delete e;
-            e = NULL;
-        }
-//    } else {
-        Entity::receiveEvent(e);
-//    }
-
-    if (e->getType() == Event::TRANSLATE) {
-        ENGINE->getPhysics()->getComponent(this)->receiveEvent(e);
+    Sphere* sphere = dynamic_cast<Sphere*> (e->entity);
+    if (sphere != NULL && sphere->getNode()->getPosition().y < -10 && sphere->getNode()->getPosition().y != 0) {
+        
+        // CONTINUE HERE
+        sphere->getPhysics()->getBody()->translate(BtOgre::Convert::toBullet(Ogre::Vector3(0,30,0)));
     }
 }

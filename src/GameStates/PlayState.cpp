@@ -41,11 +41,11 @@ void PlayState::load()
 #else
     LevelManager::getSingleton().load("level_" + std::to_string(level) + ".txt",
             Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-#endif    
+#endif
     Entity* sphere = ENGINE->produceEntity("sphere", "playerSphere");
     sphere->getNode()->setPosition(ENGINE->getStartPosition());
     sphere->receiveEvent(new Event(Event::TRANSLATE));
-    
+
     Entity* ground = ENGINE->produceEntity("groundplate", "groundPlate");
     ground->receiveEvent(new Event(Event::TRANSLATE));
     

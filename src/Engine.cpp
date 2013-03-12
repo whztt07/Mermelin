@@ -447,7 +447,6 @@ void Engine::removeEntity(CotopaxiEngine::Entity* entity)
     if (i != entities.end()) {
         try {
             entities.erase(i);
-            std::cout << "helloooo mon petit!\n";
         } catch (std::exception& e) {
             Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove an entity");
         }

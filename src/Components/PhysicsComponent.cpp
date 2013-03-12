@@ -50,14 +50,13 @@ void PhysicsComponent::setParent(Entity* parent)
 void PhysicsComponent::createBody()
 {
     int numObjects = this->parent->getNode()->numAttachedObjects();
-    PhysicsModule::Shape s = physicsShape;
 
     if (numObjects > 0) {
         physicsEntity = dynamic_cast<Ogre::Entity*> (parent->getNode()->getAttachedObject(0));
         BtOgre::StaticMeshToShapeConverter* converter =
                 new BtOgre::StaticMeshToShapeConverter(physicsEntity);
 
-        switch (s)
+        switch (physicsShape)
         {
             case PhysicsModule::BOX:
             {
@@ -87,7 +86,7 @@ void PhysicsComponent::createBody()
             }
         }
     } else {
-        switch (s)
+        switch (physicsShape)
         {
             case PhysicsModule::BOX:
             {
@@ -211,7 +210,8 @@ void PhysicsComponent::setActive(bool active)
             createBody();
         }
     } else {
-        ENGINE->getPhysics()->getWorld()->removeRigidBody(body);
+        ENGINE->getPhysics()->getWorld()->removeRigidBody(body);        
+        delete body;
         body = NULL;
     }
 }
