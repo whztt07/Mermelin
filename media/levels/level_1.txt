@@ -1,7 +1,7 @@
 # game level
 Properties:
 name = Level1
-start = (9, 0, 17)
+start = (9, 0.2, 17)
 camera = (0, 2, -5)
 Logic:
 button = b1,(17, 0, 9)

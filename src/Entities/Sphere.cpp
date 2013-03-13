@@ -34,7 +34,22 @@ Sphere::Sphere(std::string name, Ogre::SceneNode* parentNode)
 
     this->addComponent(ENGINE->getGraphic()->getComponent(this));
 
-    loadPhysics();
+    int colMask = PhysicsModule::COL_STATIC |
+            PhysicsModule::COL_NOTHING |
+            PhysicsModule::COL_TYPECHANGER |
+            PhysicsModule::COL_BUTTON |
+            PhysicsModule::COL_GHOST;
+
+    physics = (PhysicsComponent*) ENGINE->getPhysics()->getComponent(this,
+            weight,
+            PhysicsModule::SPHERE,
+            PhysicsModule::COL_PLAYER,
+            colMask);
+    
+    this->addComponent(physics);
+
+    ((PhysicsComponent*) ENGINE->getPhysics()->getComponent(this))->setComponentGravity(
+            Ogre::Vector3(0, -10, 0));
 
     light = ENGINE->getSceneManager()->createLight("SphereLight");
     light->setVisible(false);
@@ -46,11 +61,7 @@ Sphere::Sphere(std::string name, Ogre::SceneNode* parentNode)
 
 void Sphere::receiveEvent(CotopaxiEngine::Event* event)
 {
-    if (event->getType() == Event::EventType::TRANSLATE) {       
-		this->removeComponent(physics);
-        Entity::receiveEvent(event);
-        loadPhysics();
-    }
+    /// @todo do something
 }
 
 void Sphere::setElement(const Element& state)
@@ -81,23 +92,4 @@ void Sphere::setElement(const Element& state)
             this->getGraphicComponent()->setShader(new WaterShader(this));
             break;
     }
-}
-
-void Sphere::loadPhysics()
-{
-    int colMask = PhysicsModule::COL_STATIC |
-            PhysicsModule::COL_NOTHING |
-            PhysicsModule::COL_TYPECHANGER |
-            PhysicsModule::COL_BUTTON |
-            PhysicsModule::COL_GHOST;
-
-    physics = (PhysicsComponent*) ENGINE->getPhysics()->getComponent(this,
-            weight,
-            PhysicsModule::SPHERE,
-            PhysicsModule::COL_PLAYER,
-            colMask);
-    
-    this->addComponent(physics);
-
-    ((PhysicsComponent*) ENGINE->getPhysics()->getComponent(this))->setComponentGravity(Ogre::Vector3(0, -10, 0));
 }

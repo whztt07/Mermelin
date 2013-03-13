@@ -102,8 +102,6 @@ namespace CotopaxiEngine {
         Ogre::Vector3 lastPosition;
         Element state;
         int weight;
-        
-        void loadPhysics();
     };
 }
 

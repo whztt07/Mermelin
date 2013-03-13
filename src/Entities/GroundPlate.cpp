@@ -41,9 +41,17 @@ GroundPlate::~GroundPlate() { }
 void GroundPlate::receiveEvent(Event* e)
 {
     Sphere* sphere = dynamic_cast<Sphere*> (e->entity);
-    if (sphere != NULL && sphere->getNode()->getPosition().y < -10 && sphere->getNode()->getPosition().y != 0) {
+    
+    // checking if the collision occurs at the right place
+    if (sphere != NULL && sphere->getNode()->getPosition().y < -10) {
         
-        // CONTINUE HERE
-        sphere->getPhysics()->getBody()->translate(BtOgre::Convert::toBullet(Ogre::Vector3(0,30,0)));
+        // making the sphere stand still
+        sphere->getPhysics()->getBody()->setLinearVelocity(btVector3(0,0,0));
+        sphere->getPhysics()->getBody()->setAngularVelocity(btVector3(0,0,0));
+        
+        // moving it back to the start position
+        sphere->getPhysics()->getBody()->translate(BtOgre::Convert::toBullet(
+                ENGINE->getStartPosition() - sphere->getNode()->getPosition()));
+        
     }
 }

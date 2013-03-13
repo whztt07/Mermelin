@@ -1,7 +1,7 @@
 # game level
 Properties:
 name = Level2
-start = (0, 0, 0)
+start = (0, 0.2, 0)
 camera = (0, 2, 0)
 Logic:
 Objects:
