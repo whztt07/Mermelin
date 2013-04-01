@@ -26,7 +26,7 @@
 #include "Entities/Entity.h"
 
 namespace CotopaxiEngine
-{    
+{
     // forward declarations
     class LogicComponent;
     class PhysicsComponent;
@@ -53,7 +53,7 @@ namespace CotopaxiEngine
         };
 
         WoodWall(std::string name, Ogre::SceneNode* parentNode);
-        
+
         virtual ~WoodWall();
 
         /**
@@ -80,10 +80,19 @@ namespace CotopaxiEngine
 
         virtual void receiveEvent(Event* event);
     private:
-        PhysicsComponent* physics;
         WoodWallState state;
         AudioComponent* audioComponent;
         BaseComponent* trigger;
+
+        class Destruction : public sf::Thread
+        {
+        public:
+            Destruction(WoodWall* wall);
+        private:
+            WoodWall* wall;
+            PhysicsComponent* physics;
+            virtual void Run();
+        };
     };
 }
 

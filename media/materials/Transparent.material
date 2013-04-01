@@ -1,6 +1,6 @@
-// Transparent material, 2012
+// Transparent material, 2013
 // Invisible material for objects that shall not be displayed in OGRE.
-// Patrick Joos, Eduardo Hahn Paredes
+// Eduardo Hahn Paredes
 
 material Transparent
 {

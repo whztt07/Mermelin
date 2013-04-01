@@ -1,11 +1,10 @@
 // Door material, 2012
 // Material that is used for doors.
-// Patrick Joos, Eduardo Hahn Paredes
+// Eduardo Hahn Paredes
 
 material Door
 {
-    receive_shadows on 
-
+    receive_shadows on
     technique
     {
         pass door

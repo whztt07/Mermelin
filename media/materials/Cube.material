@@ -1,13 +1,13 @@
 // Cube material, 2012
 // Material that is used for hellraiser cube.
-// Patrick Joos, Eduardo Hahn Paredes
+// Eduardo Hahn Paredes
 
 material Cube
 {
     receive_shadows on
-    technique cube
+    technique
     {
-        pass cube
+        pass
         {
             alpha_to_coverage off
             colour_write on

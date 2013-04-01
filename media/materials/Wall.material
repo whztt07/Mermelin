@@ -1,6 +1,6 @@
-// Wall material, 2012
+// Wall material, 2013
 // Material that is used as base for the walls.
-// Patrick Joos, Eduardo Hahn Paredes
+// Eduardo Hahn Paredes
 
 material Wall
 {

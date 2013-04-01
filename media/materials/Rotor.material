@@ -1,13 +1,13 @@
-// Floor material, 2012
+// Rotor material, 2013
 // Material that is used for the rotor.
-// Patrick Joos, Eduardo Hahn Paredes
+// Eduardo Hahn Paredes
 
 material Rotor 
 {
     receive_shadows on
     technique
     {
-        pass Rotor
+        pass
         {
             ambient  0.3 0.3 0.3 1.0
             diffuse  0.2 0.2 0.2 1.0

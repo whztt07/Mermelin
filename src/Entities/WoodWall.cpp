@@ -32,7 +32,7 @@ WoodWall::WoodWall(std::string name, Ogre::SceneNode* parentNode)
     trigger = ENGINE->getLogic()->createTrigger(this, name);
     this->addComponent(trigger);
     this->registerListener(Event::COLLISION_ENTER, trigger);
-    
+
     audioComponent = dynamic_cast<AudioComponent*> (ENGINE->getAudio()->getComponent(this));
     this->addComponent(audioComponent);
     audioComponent->addSound("burning");
@@ -49,22 +49,46 @@ WoodWall::~WoodWall()
 
 void WoodWall::receiveEvent(Event* event)
 {
-    if (event->getType() == Event::COLLISION_ENTER && state == NORMAL) { 
+    if (event->getType() == Event::COLLISION_ENTER && state == NORMAL) {
         trigger->receiveEvent(event);
         audioComponent->play("wood", false);
-        
+
         Sphere* playerSphere = dynamic_cast<Sphere*> (event->entity);
 
         if (playerSphere != NULL) {
             if (playerSphere->getState() == Element::FIRE) {
-                state = BURNING;      
+                state = BURNING;
                 audioComponent->play("burning", false);
-                
-                physics = dynamic_cast<PhysicsComponent*>(ENGINE->getPhysics()->getComponent(this));
-                physics->setActive(false);
-                
-                this->getNode()->getParent()->removeChild(this->getNode());                
+                Destruction* destroy = new Destruction(this);
+                destroy->Launch();
             }
         }
     }
+}
+
+WoodWall::Destruction::Destruction(WoodWall* outer)
+{
+    wall = outer;
+}
+
+void WoodWall::Destruction::Run()
+{
+    // Creating smoke
+    Ogre::ParticleSystem* smoke = ENGINE->getSceneManager()->createParticleSystem("Smoke");
+    wall->getNode()->attachObject(smoke);
+    
+    // Showing the burning wall
+    FireShader* fire = new FireShader(wall);
+    Ogre::MaterialPtr material = Ogre::MaterialManager::getSingletonPtr()->getByName("Black");
+    wall->getGraphicComponent()->setShader(fire);
+    sf::Sleep(8);
+
+    // Displaying it as coal (black)
+    wall->getOgreEntity()->setMaterial(material);
+    sf::Sleep(2);
+    
+    physics = dynamic_cast<PhysicsComponent*> (ENGINE->getPhysics()->getComponent(wall));
+    physics->setActive(false);
+    wall->getNode()->getParent()->removeChild(wall->getNode());
+    delete fire;
 }

@@ -1,6 +1,6 @@
-// Floor material, 2012
+// Floor material, 2013
 // Material that is used as base for the floors and holes.
-// Patrick Joos, Eduardo Hahn Paredes
+// Eduardo Hahn Paredes
 
 material Floor 
 {

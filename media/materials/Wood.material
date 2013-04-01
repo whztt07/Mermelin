@@ -1,11 +1,13 @@
+// Wood material, 2013
+// Material that is used for the wooden wall.
+// Eduardo Hahn Paredes
 
-// blender material: Wood
 material Wood 
 {
     receive_shadows on
     technique
     {
-        pass Wood
+        pass
         {
             shading gouraud
             texture_unit wood

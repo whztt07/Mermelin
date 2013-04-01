@@ -1,14 +1,13 @@
 // Button material, 2012
 // Material that is used on the inside of the buttons.
-// Patrick Joos, Eduardo Hahn Paredes
+// Eduardo Hahn Paredes
 
 material Button 
 {
-    receive_shadows off 
-
+    receive_shadows off
     technique
     {
-        pass Button
+        pass
         {
             ambient  0.7 0.0 0.0 1.0
             diffuse  0.5 0.0 0.0 1.0

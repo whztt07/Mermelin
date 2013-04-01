@@ -1,9 +1,13 @@
+// Wind material, 2013
+// Material that is used for the Rotors, when the wind shall be displayed.
+// Eduardo Hahn Paredes
+
 material Wind 
 {
     receive_shadows off
     technique
     {
-        pass Wind
+        pass
         {
             scene_blend alpha_blend
             colour_write on
