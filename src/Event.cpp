@@ -32,3 +32,23 @@ Event::EventType Event::getType() const
 {
     return type;
 }
+
+void Event::setEntity(Entity* entity)
+{
+    this->entity = entity;
+}
+
+Entity* Event::getEntity() const
+{
+    return entity;
+}
+
+void Event::setComponent(BaseComponent* component)
+{
+    this->component = component;
+}
+
+BaseComponent* Event::getComponent() const
+{
+    return component;
+}

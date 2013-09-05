@@ -47,10 +47,8 @@ namespace CotopaxiEngine
         }
 
 		virtual void receiveEvent(Event* e);
-		virtual bool frameStarted(const Ogre::FrameEvent& evt);
     private:
         int level;		
-		bool changeLevel;
     };
 }
 

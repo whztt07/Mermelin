@@ -97,7 +97,7 @@ void Door::addComponent(BaseComponent* component)
 
     Trigger* trigger = dynamic_cast<Trigger*> (component);
 
-    if (trigger != NULL) {
+    if (trigger) {
         this->registerListener(Event::COLLISION_ENTER, component);
         this->registerListener(Event::COLLISION_EXIT, component);
     }

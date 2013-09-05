@@ -35,9 +35,7 @@ namespace CotopaxiEngine
         
         static Entity* create(std::string name, Ogre::SceneNode* parentNode) {
             return new Goal(name, parentNode);
-        };
-    private:
-
+        }
     };
 }
 

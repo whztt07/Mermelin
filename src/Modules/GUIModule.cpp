@@ -208,7 +208,7 @@ void GUIModule::RenderCompiledGeometry(Rocket::Core::CompiledGeometryHandle geom
     renderSystem = Ogre::Root::getSingleton().getRenderSystem();
     GUIGeometry* ogre3d_geometry = (GUIGeometry*) geometry;
 
-    if (ogre3d_geometry->texture != NULL) {
+    if (ogre3d_geometry->texture) {
         renderSystem->_setTexture(0, true, ogre3d_geometry->texture->texture);
 
         // Ogre can change the blending modes when textures are disabled - so in case the last 

@@ -43,10 +43,11 @@ Entity::Entity(std::string name, std::string meshName, Ogre::SceneNode* parentNo
 Entity::~Entity()
 {
     ComponentVector::iterator i;
-    for (i = components.begin(); i != components.end(); i++) {
+    for (i = components.begin(); i != components.end(); i++) {        
         delete *i;
         *i = NULL;
     }
+    
 }
 
 void Entity::addComponent(BaseComponent *component)
@@ -71,7 +72,7 @@ void Entity::receiveEvent(Event* e)
 
 void Entity::setParentNode(Ogre::SceneNode* newParent)
 {
-    this->node->getParentSceneNode()->removeChild(this->node);
+    node->getParentSceneNode()->removeChild(node);
     newParent->addChild(node);
 }
 

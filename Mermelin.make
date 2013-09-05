@@ -78,46 +78,46 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/Event.o \
 	$(OBJDIR)/Engine.o \
+	$(OBJDIR)/Event.o \
 	$(OBJDIR)/Main.o \
-	$(OBJDIR)/InputComponent.o \
+	$(OBJDIR)/AudioModule.o \
+	$(OBJDIR)/LogicModule.o \
+	$(OBJDIR)/PhysicsModule.o \
+	$(OBJDIR)/InputModule.o \
+	$(OBJDIR)/GraphicModule.o \
+	$(OBJDIR)/GUIModule.o \
+	$(OBJDIR)/AudioComponent.o \
 	$(OBJDIR)/PhysicsComponent.o \
 	$(OBJDIR)/GraphicComponent.o \
 	$(OBJDIR)/GhostComponent.o \
-	$(OBJDIR)/AudioComponent.o \
-	$(OBJDIR)/LogicModule.o \
-	$(OBJDIR)/AudioModule.o \
-	$(OBJDIR)/InputModule.o \
-	$(OBJDIR)/GUIModule.o \
-	$(OBJDIR)/GraphicModule.o \
-	$(OBJDIR)/PhysicsModule.o \
-	$(OBJDIR)/AudioManager.o \
-	$(OBJDIR)/LevelManager.o \
-	$(OBJDIR)/Level.o \
-	$(OBJDIR)/Audio.o \
+	$(OBJDIR)/InputComponent.o \
 	$(OBJDIR)/BtOgre.o \
-	$(OBJDIR)/Condition.o \
-	$(OBJDIR)/Trigger.o \
-	$(OBJDIR)/IntroState.o \
-	$(OBJDIR)/GameState.o \
-	$(OBJDIR)/PlayState.o \
-	$(OBJDIR)/EarthShader.o \
-	$(OBJDIR)/WaterShader.o \
-	$(OBJDIR)/RotationShader.o \
-	$(OBJDIR)/AirShader.o \
-	$(OBJDIR)/Shader.o \
-	$(OBJDIR)/FireShader.o \
+	$(OBJDIR)/Door.o \
+	$(OBJDIR)/Sphere.o \
+	$(OBJDIR)/Goal.o \
+	$(OBJDIR)/Rotor.o \
+	$(OBJDIR)/TypeChanger.o \
+	$(OBJDIR)/Entity.o \
+	$(OBJDIR)/GroundPlate.o \
 	$(OBJDIR)/WoodWall.o \
 	$(OBJDIR)/Button.o \
-	$(OBJDIR)/Sphere.o \
-	$(OBJDIR)/TypeChanger.o \
-	$(OBJDIR)/Rotor.o \
-	$(OBJDIR)/Entity.o \
-	$(OBJDIR)/Door.o \
-	$(OBJDIR)/Goal.o \
-	$(OBJDIR)/GroundPlate.o \
 	$(OBJDIR)/Camera.o \
+	$(OBJDIR)/GameState.o \
+	$(OBJDIR)/PlayState.o \
+	$(OBJDIR)/IntroState.o \
+	$(OBJDIR)/EarthShader.o \
+	$(OBJDIR)/FireShader.o \
+	$(OBJDIR)/AirShader.o \
+	$(OBJDIR)/WaterShader.o \
+	$(OBJDIR)/Shader.o \
+	$(OBJDIR)/RotationShader.o \
+	$(OBJDIR)/LevelManager.o \
+	$(OBJDIR)/AudioManager.o \
+	$(OBJDIR)/Level.o \
+	$(OBJDIR)/Audio.o \
+	$(OBJDIR)/Trigger.o \
+	$(OBJDIR)/Condition.o \
 
 RESOURCES := \
 
@@ -182,16 +182,34 @@ endif
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 endif
 
-$(OBJDIR)/Event.o: src/Event.cpp
+$(OBJDIR)/Engine.o: src/Engine.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Engine.o: src/Engine.cpp
+$(OBJDIR)/Event.o: src/Event.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/Main.o: src/Main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/InputComponent.o: src/Components/InputComponent.cpp
+$(OBJDIR)/AudioModule.o: src/Modules/AudioModule.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/LogicModule.o: src/Modules/LogicModule.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/PhysicsModule.o: src/Modules/PhysicsModule.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/InputModule.o: src/Modules/InputModule.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/GraphicModule.o: src/Modules/GraphicModule.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/GUIModule.o: src/Modules/GUIModule.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/AudioComponent.o: src/Components/AudioComponent.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/PhysicsComponent.o: src/Components/PhysicsComponent.cpp
@@ -203,73 +221,31 @@ $(OBJDIR)/GraphicComponent.o: src/Components/GraphicComponent.cpp
 $(OBJDIR)/GhostComponent.o: src/Components/GhostComponent.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/AudioComponent.o: src/Components/AudioComponent.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/LogicModule.o: src/Modules/LogicModule.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/AudioModule.o: src/Modules/AudioModule.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/InputModule.o: src/Modules/InputModule.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/GUIModule.o: src/Modules/GUIModule.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/GraphicModule.o: src/Modules/GraphicModule.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/PhysicsModule.o: src/Modules/PhysicsModule.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/AudioManager.o: src/Resources/Managers/AudioManager.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/LevelManager.o: src/Resources/Managers/LevelManager.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Level.o: src/Resources/Files/Level.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Audio.o: src/Resources/Files/Audio.cpp
+$(OBJDIR)/InputComponent.o: src/Components/InputComponent.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/BtOgre.o: src/External/BtOgre/BtOgre.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Condition.o: src/Logic/Condition.cpp
+$(OBJDIR)/Door.o: src/Entities/Door.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Trigger.o: src/Logic/Trigger.cpp
+$(OBJDIR)/Sphere.o: src/Entities/Sphere.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/IntroState.o: src/GameStates/IntroState.cpp
+$(OBJDIR)/Goal.o: src/Entities/Goal.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/GameState.o: src/GameStates/GameState.cpp
+$(OBJDIR)/Rotor.o: src/Entities/Rotor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/PlayState.o: src/GameStates/PlayState.cpp
+$(OBJDIR)/TypeChanger.o: src/Entities/TypeChanger.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/EarthShader.o: src/Shaders/EarthShader.cpp
+$(OBJDIR)/Entity.o: src/Entities/Entity.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WaterShader.o: src/Shaders/WaterShader.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/RotationShader.o: src/Shaders/RotationShader.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/AirShader.o: src/Shaders/AirShader.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Shader.o: src/Shaders/Shader.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/FireShader.o: src/Shaders/FireShader.cpp
+$(OBJDIR)/GroundPlate.o: src/Entities/GroundPlate.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/WoodWall.o: src/Entities/WoodWall.cpp
@@ -278,28 +254,52 @@ $(OBJDIR)/WoodWall.o: src/Entities/WoodWall.cpp
 $(OBJDIR)/Button.o: src/Entities/Button.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Sphere.o: src/Entities/Sphere.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/TypeChanger.o: src/Entities/TypeChanger.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Rotor.o: src/Entities/Rotor.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Entity.o: src/Entities/Entity.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Door.o: src/Entities/Door.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Goal.o: src/Entities/Goal.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/GroundPlate.o: src/Entities/GroundPlate.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/Camera.o: src/Entities/Camera.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/GameState.o: src/GameStates/GameState.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/PlayState.o: src/GameStates/PlayState.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/IntroState.o: src/GameStates/IntroState.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/EarthShader.o: src/Shaders/EarthShader.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/FireShader.o: src/Shaders/FireShader.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/AirShader.o: src/Shaders/AirShader.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/WaterShader.o: src/Shaders/WaterShader.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/Shader.o: src/Shaders/Shader.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/RotationShader.o: src/Shaders/RotationShader.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/LevelManager.o: src/Resources/Managers/LevelManager.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/AudioManager.o: src/Resources/Managers/AudioManager.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/Level.o: src/Resources/Files/Level.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/Audio.o: src/Resources/Files/Audio.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/Trigger.o: src/Logic/Trigger.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/Condition.o: src/Logic/Condition.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

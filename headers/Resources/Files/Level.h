@@ -48,10 +48,6 @@ namespace CotopaxiEngine {
      */
     class Level : public Ogre::Resource
     {
-#ifdef DEBUG
-        friend class Test;
-#endif
-
     protected:
         void loadImpl();
         void unloadImpl();
@@ -103,11 +99,11 @@ namespace CotopaxiEngine {
         Ogre::Vector3 tempVec;
         std::string levelName;
 
-		std::vector<Entity*> entityPointers;
-
         static const Ogre::Quaternion rot90; //  90 degree rotation around y-axis 
         static const Ogre::Quaternion rot180; // 180 degree rotation around y-axis 
-        static const Ogre::Quaternion rot270; // 270 degree rotation around y-axis 
+        static const Ogre::Quaternion rot270; // 270 degree rotation around y-axis
+        
+        bool loaded;
 
         int objectCounter;
         int lineCounter;

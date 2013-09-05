@@ -98,7 +98,7 @@ void GhostComponent::checkOverlappingObjects()
             e = new Event(Event::COLLISION);
         }
 
-        e->entity = component->getParent();
+        e->setEntity(component->getParent());
         this->parent->receiveEvent(e);
         //delete e;
     }
@@ -120,7 +120,7 @@ void GhostComponent::checkOverlappingObjects()
         for (; it != delta.end(); it++) {
             Entity* exitCollision = ENGINE->getEntity(*it);
             Event* exitEvent = new Event(Event::COLLISION_EXIT);
-            exitEvent->entity = exitCollision;
+            exitEvent->setEntity(exitCollision);
             parent->receiveEvent(exitEvent);
             delete exitEvent;
             exitEvent = NULL;

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="89">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="/home/eduardo/Dropbox/CPP/ehpMermelin" name="ehpMermelin">
+      <df name="bin">
+        <df name="debug">
+        </df>
+      </df>
+      <df name="doc">
+        <df name="html">
+          <df name="search">
+          </df>
+        </df>
+        <df name="latex">
+        </df>
+      </df>
+      <df name="headers">
+        <df name="Components">
+        </df>
+        <df name="Entities">
+        </df>
+        <df name="External">
+          <df name="BtOgre">
+          </df>
+        </df>
+        <df name="GameStates">
+        </df>
+        <df name="Logic">
+        </df>
+        <df name="Modules">
+        </df>
+        <df name="Resources">
+          <df name="Files">
+            <in>ConfigStore.h</in>
+          </df>
+          <df name="Managers">
+          </df>
+        </df>
+        <df name="Shaders">
+        </df>
+      </df>
+      <df name="media">
+        <df name="audio">
+        </df>
+        <df name="blender">
+        </df>
+        <df name="fonts">
+        </df>
+        <df name="gui">
+        </df>
+        <df name="levels">
+        </df>
+        <df name="materials">
+        </df>
+        <df name="meshes">
+        </df>
+        <df name="particles">
+        </df>
+        <df name="shaders">
+        </df>
+        <df name="textures">
+        </df>
+      </df>
+      <df name="obj">
+        <df name="Debug">
+          <in>stdafx.h</in>
+        </df>
+      </df>
+      <df name="src">
+        <df name="Components">
+        </df>
+        <df name="Entities">
+        </df>
+        <df name="External">
+          <df name="BtOgre">
+          </df>
+        </df>
+        <df name="GameStates">
+        </df>
+        <df name="Logic">
+        </df>
+        <df name="Modules">
+        </df>
+        <df name="Resources">
+          <df name="Files">
+          </df>
+          <df name="Managers">
+          </df>
+        </df>
+        <df name="Shaders">
+        </df>
+      </df>
+    </df>
+    <df name="headers">
+      <df name="Components">
+        <in>AudioComponent.h</in>
+        <in>BaseComponent.h</in>
+        <in>GhostComponent.h</in>
+        <in>GraphicComponent.h</in>
+        <in>InputComponent.h</in>
+        <in>LogicComponent.h</in>
+        <in>PhysicsComponent.h</in>
+      </df>
+      <df name="Entities">
+        <in>Button.h</in>
+        <in>Camera.h</in>
+        <in>Door.h</in>
+        <in>Entity.h</in>
+        <in>Goal.h</in>
+        <in>GroundPlate.h</in>
+        <in>Rotor.h</in>
+        <in>Sphere.h</in>
+        <in>TypeChanger.h</in>
+        <in>WoodWall.h</in>
+      </df>
+      <df name="External">
+        <df name="BtOgre">
+          <in>BtOgreExtras.h</in>
+          <in>BtOgreGP.h</in>
+          <in>BtOgrePG.h</in>
+        </df>
+      </df>
+      <df name="GameStates">
+        <in>GameState.h</in>
+        <in>IntroState.h</in>
+        <in>PlayState.h</in>
+      </df>
+      <df name="Logic">
+        <in>Condition.h</in>
+        <in>Trigger.h</in>
+      </df>
+      <df name="Modules">
+        <in>AudioModule.h</in>
+        <in>BaseModule.h</in>
+        <in>GUIModule.h</in>
+        <in>GraphicModule.h</in>
+        <in>InputModule.h</in>
+        <in>LogicModule.h</in>
+        <in>PhysicsModule.h</in>
+      </df>
+      <df name="Resources">
+        <df name="Files">
+          <in>Audio.h</in>
+          <in>Level.h</in>
+        </df>
+        <df name="Managers">
+          <in>AudioManager.h</in>
+          <in>LevelManager.h</in>
+        </df>
+      </df>
+      <df name="Shaders">
+        <in>AirShader.h</in>
+        <in>EarthShader.h</in>
+        <in>FireShader.h</in>
+        <in>RotationShader.h</in>
+        <in>Shader.h</in>
+        <in>WaterShader.h</in>
+      </df>
+      <in>Engine.h</in>
+      <in>Event.h</in>
+      <in>stdafx.h</in>
+    </df>
+    <df name="src">
+      <df name="Components">
+        <in>AudioComponent.cpp</in>
+        <in>GhostComponent.cpp</in>
+        <in>GraphicComponent.cpp</in>
+        <in>InputComponent.cpp</in>
+        <in>PhysicsComponent.cpp</in>
+      </df>
+      <df name="Entities">
+        <in>Button.cpp</in>
+        <in>Camera.cpp</in>
+        <in>Door.cpp</in>
+        <in>Entity.cpp</in>
+        <in>Goal.cpp</in>
+        <in>GroundPlate.cpp</in>
+        <in>Rotor.cpp</in>
+        <in>Sphere.cpp</in>
+        <in>TypeChanger.cpp</in>
+        <in>WoodWall.cpp</in>
+      </df>
+      <df name="External">
+        <df name="BtOgre">
+          <in>BtOgre.cpp</in>
+        </df>
+      </df>
+      <df name="GameStates">
+        <in>GameState.cpp</in>
+        <in>IntroState.cpp</in>
+        <in>PlayState.cpp</in>
+      </df>
+      <df name="Logic">
+        <in>Condition.cpp</in>
+        <in>Trigger.cpp</in>
+      </df>
+      <df name="Modules">
+        <in>AudioModule.cpp</in>
+        <in>GUIModule.cpp</in>
+        <in>GraphicModule.cpp</in>
+        <in>InputModule.cpp</in>
+        <in>LogicModule.cpp</in>
+        <in>PhysicsModule.cpp</in>
+      </df>
+      <df name="Resources">
+        <df name="Files">
+          <in>Audio.cpp</in>
+          <in>Level.cpp</in>
+        </df>
+        <df name="Managers">
+          <in>AudioManager.cpp</in>
+          <in>LevelManager.cpp</in>
+        </df>
+      </df>
+      <df name="Shaders">
+        <in>AirShader.cpp</in>
+        <in>EarthShader.cpp</in>
+        <in>FireShader.cpp</in>
+        <in>RotationShader.cpp</in>
+        <in>Shader.cpp</in>
+        <in>WaterShader.cpp</in>
+      </df>
+      <in>Engine.cpp</in>
+      <in>Event.cpp</in>
+      <in>Main.cpp</in>
+    </df>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <compile>
+        <compiledirpicklist>
+          <compiledirpicklistitem>.</compiledirpicklistitem>
+          <compiledirpicklistitem>${AUTO_FOLDER}</compiledirpicklistitem>
+        </compiledirpicklist>
+        <compiledir>${AUTO_FOLDER}</compiledir>
+        <compilecommandpicklist>
+          <compilecommandpicklistitem>${MAKE} ${ITEM_NAME}.o</compilecommandpicklistitem>
+          <compilecommandpicklistitem>${AUTO_COMPILE}</compilecommandpicklistitem>
+        </compilecommandpicklist>
+        <compilecommand>${AUTO_COMPILE}</compilecommand>
+      </compile>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>valgrind --leak-check=yes "${OUTPUT_PATH} "</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --leak-check=yes .</runcommandpicklistitem>
+          <runcommandpicklistitem>"valgrind --leak-check=yes ${OUTPUT_PATH} "</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --leak-check=yes ${OUTPUT_PATH} </runcommandpicklistitem>
+          <runcommandpicklistitem>optirun "${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <rundir>.</rundir>
+        <buildfirst>true</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>

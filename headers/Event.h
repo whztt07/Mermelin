@@ -20,7 +20,8 @@
 
 #ifndef EVENT_H
 #define EVENT_H
-namespace CotopaxiEngine {
+namespace CotopaxiEngine
+{
 
     // forward declarations
     class BaseComponent;
@@ -61,7 +62,9 @@ namespace CotopaxiEngine {
             CONDITION_FULFILLED,
             ANIMATION_STARTED,
             ANIMATION_ENDED,
-            LEVEL_END
+            LEVEL_END,
+            LEVEL_READY_FOR_NEXT,
+            LEVEL_LOAD_NEXT
         };
 
         Event(EventType);
@@ -72,10 +75,18 @@ namespace CotopaxiEngine {
          */
         virtual EventType getType() const;
 
-        /** Can be used to access the Entity that produced the Event. */
+        /**
+         * @fn getType
+         * @return the type of an event
+         */
+        void setEntity(Entity* entity);
+        Entity* getEntity() const;
+        void setComponent(BaseComponent* component);
+        BaseComponent* getComponent() const;
+
+    private:
         Entity* entity;
         BaseComponent* component;
-    private:
         EventType type;
     };
 

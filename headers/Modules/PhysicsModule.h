@@ -99,7 +99,9 @@ namespace CotopaxiEngine
 
         void setDrawDebugWorld(bool draw);
         btDynamicsWorld* getWorld();
+        
         void unload();
+        void reload();
     private:
         btDynamicsWorld* dynamics;
         BtOgre::DebugDrawer* dbgdraw;
@@ -109,6 +111,7 @@ namespace CotopaxiEngine
         btSequentialImpulseConstraintSolver* solver;
         std::map<std::string, PhysicsComponent*> components;
         std::map<std::string, GhostComponent*> ghosts;
+        void load();
     };
 }
 #endif

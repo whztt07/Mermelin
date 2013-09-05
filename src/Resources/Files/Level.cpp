@@ -33,14 +33,14 @@ Level::Level(Ogre::ResourceManager *creator,
         const Ogre::String& group,
         bool isManual,
         Ogre::ManualResourceLoader* loader)
-: Ogre::Resource(creator, name, handle, group, isManual, loader)
+: Ogre::Resource(creator, name, handle, group, isManual, loader),
+loaded(false),
+objectCounter(0),
+lineCounter(0),
+floorCounter(0),
+state(State::NONE)
 {
     createParamDictionary("Level");
-    objectCounter = 0;
-    lineCounter = 0;
-    floorCounter = 0;
-    state = State::NONE;
-
     try {
         levelNode = ENGINE->getSceneManager()->getSceneNode("LevelNode");
     } catch (std::exception& e) {
@@ -56,8 +56,9 @@ void destroyAllAttachedMovableObjects(Ogre::SceneNode* node)
     // destroying all the attached objects
     Ogre::SceneNode::ObjectIterator itObject = node->getAttachedObjectIterator();
 
-    while (itObject.hasMoreElements())
+    while (itObject.hasMoreElements()) {
         node->getCreator()->destroyMovableObject(itObject.getNext());
+    }
 
     // recurse to child SceneNodes
     Ogre::SceneNode::ChildNodeIterator itChild = node->getChildIterator();
@@ -87,14 +88,15 @@ void destroySceneNode(Ogre::SceneNode* node)
 
 Level::~Level()
 {
-    destroyAllAttachedMovableObjects(levelNode);
-    destroySceneNode(levelNode);
-
     unload();
 }
 
 void Level::loadImpl()
 {
+    if(loaded) {
+        unload();
+    }
+    
     Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(mName,
             mGroup, true, this);
     string line;
@@ -102,18 +104,30 @@ void Level::loadImpl()
     while (!stream->eof()) {
         line = stream->getLine();
         readLine(line);
+        std::cout << "loading " << line << " \n";
     }
     stream->close();
-
+    loaded = true;
 }
 
 void Level::unloadImpl()
-{
-    for (std::vector<Entity*>::iterator it = entityPointers.begin(); it != entityPointers.end(); it++) {
-        ENGINE->removeEntity(*it);
-    }
+{   
+    ENGINE->removeAllEntities();
+    
+    destroySceneNode(levelNode);   
+       
+    // clearing OGRE
+//    ENGINE->getSceneManager()->clearScene();
 
-    levelNode->removeAndDestroyAllChildren();
+    // clearing Bullet
+//    ENGINE->getPhysics()->reload();
+    
+    lineCounter = 0;
+    floorCounter = 0;
+    objectCounter = 0;
+    
+    loaded = false;
+    
 }
 
 std::string Level::getLevelName() const
@@ -174,8 +188,7 @@ void Level::readLine(string line)
         return;
     }
 
-    switch (state)
-    {
+    switch (state) {
         case State::OBJECTS:
         {
             readObjectLine(lineToParse);
@@ -355,8 +368,7 @@ Entity * Level::readObject(char object, std::string name)
     int collMask = PhysicsModule::COL_NOCOLL | PhysicsModule::COL_PLAYER;
     bool trigger = false;
 
-    switch (object)
-    {
+    switch (object) {
         case 'f':
         {
             entity = ENGINE->createEntity(name, "Floor", levelNode);
@@ -557,7 +569,7 @@ Entity * Level::readObject(char object, std::string name)
             entity->getNode()->rotate(rot180);
 
             TypeChanger* changer = dynamic_cast<TypeChanger*> (entity);
-            if (changer != NULL) {
+            if (changer) {
                 changer->setElement(Element::FIRE);
             }
             collMask = PhysicsModule::COL_PLAYER;
@@ -637,7 +649,6 @@ void Level::transform(Entity* entity, Ogre::Vector3 vec, float mass, int group,
 
     Event* e = new Event(Event::TRANSLATE);
     entity->receiveEvent(e);
-    entityPointers.push_back(entity);
     delete e;
     e = NULL;
 }

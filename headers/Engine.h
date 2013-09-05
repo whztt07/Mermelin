@@ -30,7 +30,8 @@
 // Engine is a singleton and can be accessed with ENGINE from everywhere
 #define ENGINE Engine::getInstance()
 
-namespace CotopaxiEngine {
+namespace CotopaxiEngine
+{
 
     // forward delcarations
     class Entity;
@@ -56,11 +57,12 @@ namespace CotopaxiEngine {
     class Engine : public Ogre::FrameListener
     {
     public:
-        
+
         // Singleton: private constructor and instance
+
         Engine() { }
         static Engine* instance;
-        
+
         virtual ~Engine();
 
         /**
@@ -95,6 +97,7 @@ namespace CotopaxiEngine {
             STATE_RUNNING,
             STATE_DEBUGING,
             STATE_STOPPED,
+            STATE_NEXT
         };
 
         /** @brief Scaling of the world. */
@@ -127,20 +130,20 @@ namespace CotopaxiEngine {
          * @param moduleType The moduletype that needs to be loaded
          */
         void loadModule(ModuleType moduleType);
-        
+
         /**
          * @fn unloadModule
          * Unloads the specified Module
          * @param moduleType The moduletype that needs to be unloaded
          */
         void unloadModule(ModuleType moduleType);
-        
+
         /**
          * @fn loadAllModules
          * Loads every module that exists.
          */
         void loadAllModules();
-        
+
         /**
          * @fn unloadAllModules
          * Unloads every module that exists.
@@ -162,7 +165,7 @@ namespace CotopaxiEngine {
         PhysicsModule* getPhysics();
         GUIModule* getGUI();
 
-        Camera* getCamera() const;
+        Camera* getCamera();
 
         /**
          * @fn getInstance
@@ -237,13 +240,13 @@ namespace CotopaxiEngine {
         @param entity the entity to remove
          */
         void removeEntity(Entity* entity);
-        
+
         /**
         @fn removeAllEntities
         Removes and destroys all entieties.
          */
         void removeAllEntities();
-        
+
 
         /**
          * @fn registerFactoryMethod
@@ -281,21 +284,28 @@ namespace CotopaxiEngine {
          * @param type The type of event to be thrown
          */
         void throwEvent(const CotopaxiEngine::Event::EventType& type);
+        
+        /**
+         * @fn throwEvent
+         * Throws a global event
+         * @param event The pointer to the Event to be thrown
+         */
+        void throwEvent(CotopaxiEngine::Event* event);
+
         /**
          * @fn setState
          * Sets the state of the engine
          * @param state New state for the engine
          */
-        void setState(State state)
-        {
+        void setState(State state) {
             this->state = state;
         }
+
         /**
          * @fn getState
          * @return Gets the state of the engine
          */
-        State getState() const
-        {
+        State getState() const {
             return state;
         }
 
@@ -323,36 +333,36 @@ namespace CotopaxiEngine {
         bool frameStarted(const Ogre::FrameEvent& evt);
         bool frameRenderingQueued(const Ogre::FrameEvent& evt);
         bool frameEnded(const Ogre::FrameEvent& evt);
+
         /**
          * @fn setStartPosition
          * Sets the starting point for the sphere.
          * @param startPosition A 3 dimensional vector, pointing to the start pos.
          * @todo Move this to the level
          */
-        void setStartPosition(Ogre::Vector3 startPosition)
-        {
+        void setStartPosition(Ogre::Vector3 startPosition) {
             this->startPosition = startPosition;
         }
+
         /**
          * @fn getStartPosition
          * Gets the starting point for the sphere
          * @return Returns a 3 dimensional vector, pointing to the start position
          */
-        Ogre::Vector3 getStartPosition() const
-        {
+        Ogre::Vector3 getStartPosition() const {
             return startPosition;
         }
 
     private:
         void loadSections(std::string resourceFile);
-        
+
         AudioModule* audio;
         GraphicModule* graphic;
         InputModule* input;
         LogicModule* logic;
         PhysicsModule* physics;
         GUIModule* gui;
-        
+
         typedef std::map<std::string, ProduceEntity> FactoryMap;
         FactoryMap factoryMap;
 
@@ -366,9 +376,19 @@ namespace CotopaxiEngine {
         Ogre::Vector3 startPosition;
 
         std::stack<GameState*> gameStates;
-        std::map<int, BaseModule*> modules;       
+        std::map<int, BaseModule*> modules;
         std::map<std::string, Entity*> entities;
         std::map<Event::EventType, std::vector<EventListener* >> eventListeners;
+        
+        class ParallelEvent : public sf::Thread
+        {
+        public:
+            ParallelEvent(Event* e, EventListener* t);
+        private:
+            Event* event;
+            EventListener* target;
+            virtual void Run();
+        };
     };
 }
 

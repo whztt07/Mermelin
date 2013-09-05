@@ -55,7 +55,7 @@ void AudioComponent::removeSound(std::string soundName) {
 bool AudioComponent::play(std::string name, bool loop)
 {
     Audio* audioToPlay = audioList[name];
-    if (audioToPlay != NULL) {
+    if (audioToPlay) {
         audioToPlay->getAudio()->SetLoop(loop);
         audioToPlay->getAudio()->Play();
         return true;
@@ -67,7 +67,7 @@ bool AudioComponent::play(std::string name, bool loop)
 void AudioComponent::stop(std::string soundName)
 {
     Audio* audioToPlay = audioList[soundName];
-    if (audioToPlay != NULL) {
+    if (audioToPlay) {
         audioToPlay->getAudio()->Pause();
     }
 }

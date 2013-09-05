@@ -26,16 +26,7 @@ using namespace CotopaxiEngine;
 
 PhysicsModule::PhysicsModule()
 {
-    broadphase = new btAxisSweep3(btVector3(-10000, -10000, -10000),
-            btVector3(10000, 10000, 10000), 1024);
-    config = new btDefaultCollisionConfiguration();
-    dispatcher = new btCollisionDispatcher(config);
-    solver = new btSequentialImpulseConstraintSolver();
-    dynamics = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, config);
-    dynamics->setGravity(btVector3(0, -9.8, 0));
-    dbgdraw = new BtOgre::DebugDrawer(ENGINE->getSceneManager()->getRootSceneNode(), dynamics);
-    dynamics->setDebugDrawer(dbgdraw);
-    dynamics->getPairCache()->setInternalGhostPairCallback(new btGhostPairCallback);
+    load();
 }
 
 PhysicsModule::~PhysicsModule()
@@ -75,7 +66,7 @@ bool PhysicsModule::postUpdate(const Ogre::FrameEvent&evt)
 
 bool PhysicsModule::update(const Ogre::FrameEvent& evt)
 {
-    if (ENGINE->getState() == ENGINE->STATE_RUNNING 
+    if (ENGINE->getState() == ENGINE->STATE_RUNNING
             || ENGINE->getState() == ENGINE->STATE_DEBUGING) {
         dynamics->stepSimulation(evt.timeSinceLastFrame, 10);
     }
@@ -137,19 +128,38 @@ void PhysicsModule::removeComponent(std::string component)
         components.erase(componentToRemove);
     }
 
-	std::map<std::string, GhostComponent*>::iterator ghostToRemove = ghosts.find(component);
+    std::map<std::string, GhostComponent*>::iterator ghostToRemove = ghosts.find(component);
 
-	if(ghostToRemove != ghosts.end())
-	{
-		ghosts.erase(ghostToRemove);
-	}
+    if (ghostToRemove != ghosts.end()) {
+        ghosts.erase(ghostToRemove);
+    }
+}
+
+void PhysicsModule::load()
+{
+    broadphase = new btAxisSweep3(btVector3(-10000, -10000, -10000),
+            btVector3(10000, 10000, 10000), 1024);
+    config = new btDefaultCollisionConfiguration();
+    dispatcher = new btCollisionDispatcher(config);
+    solver = new btSequentialImpulseConstraintSolver();
+    dynamics = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, config);
+    dynamics->setGravity(btVector3(0, -9.8, 0));
+    dbgdraw = new BtOgre::DebugDrawer(ENGINE->getSceneManager()->getRootSceneNode(), dynamics);
+    dynamics->setDebugDrawer(dbgdraw);
+    dynamics->getPairCache()->setInternalGhostPairCallback(new btGhostPairCallback);
 }
 
 void PhysicsModule::unload()
-{    
+{
     std::map<std::string, PhysicsComponent*>::iterator i;
     for (i = components.begin(); i != components.end(); i++) {
         components.erase(i);
     }
     components.clear();
+}
+
+void PhysicsModule::reload()
+{
+    unload();
+    load();
 }

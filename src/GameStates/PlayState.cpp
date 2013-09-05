@@ -27,8 +27,7 @@ using namespace CotopaxiEngine;
 PlayState::PlayState()
 : level(1)
 {
-    changeLevel = false;
-    ENGINE->registerForEventType(this, Event::LEVEL_END);
+    ENGINE->registerForEventType(this, Event::LEVEL_LOAD_NEXT);
 }
 
 void PlayState::load()
@@ -42,46 +41,43 @@ void PlayState::load()
     LevelManager::getSingleton().load("level_" + std::to_string(level) + ".txt",
             Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 #endif
-    Entity* sphere = ENGINE->produceEntity("sphere", "playerSphere");
-    sphere->getNode()->setPosition(ENGINE->getStartPosition());
-    sphere->receiveEvent(new Event(Event::TRANSLATE));
+    if (!ENGINE->getSceneManager()->hasSceneNode("playerSphere")) {
+        Entity* sphere = ENGINE->produceEntity("sphere", "playerSphere");
+        sphere->getNode()->setPosition(ENGINE->getStartPosition());
+        sphere->receiveEvent(new Event(Event::TRANSLATE));
+        ENGINE->getCamera()->attachTo(sphere);
+    }
 
-    Entity* ground = ENGINE->produceEntity("groundplate", "groundPlate");
-    ground->receiveEvent(new Event(Event::TRANSLATE));
-    
-    Ogre::Light* light = ENGINE->getSceneManager()->createLight("MainLight");
-    light->setPosition(50, 50, 50);
-    light->setPowerScale(20);
-    light->setType(Ogre::Light::LT_POINT);
-    light->setCastShadows(true);
-    light->setDiffuseColour(1.0, 1.0, 1.0);
-    
-    ENGINE->getCamera()->attachTo(sphere);
+    if (!ENGINE->getSceneManager()->hasSceneNode("groundPlate")) {
+        Entity* ground = ENGINE->produceEntity("groundplate", "groundPlate");
+        ground->receiveEvent(new Event(Event::TRANSLATE));
+    }
+
+    if (!ENGINE->getSceneManager()->hasLight("MainLight")) {
+        Ogre::Light* light = ENGINE->getSceneManager()->createLight("MainLight");
+        light->setPosition(50, 50, 50);
+        light->setPowerScale(20);
+        light->setType(Ogre::Light::LT_POINT);
+        light->setCastShadows(true);
+        light->setDiffuseColour(1.0, 1.0, 1.0);
+    }
 
     loaded = true;
+    ENGINE->setState(ENGINE->STATE_RUNNING);
 }
 
 void PlayState::loadNext()
 {
-    LevelManager::getSingleton().unload("level_" + std::to_string(((long double) level)) + ".txt");
-    ENGINE->removeAllEntities();
-    ENGINE->getSceneManager()->clearScene();    
+
+    LevelManager::getSingleton().unload("level_" + std::to_string(level) + ".txt",
+            Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
     level++;
     load();
 }
 
 void PlayState::receiveEvent(Event* e)
 {
-    if (e->getType() == Event::LEVEL_END) {
-        changeLevel = true;
-    }
-}
-
-bool PlayState::frameStarted(const Ogre::FrameEvent& evt)
-{
-    if (changeLevel) {
+    if (ENGINE->getState() == ENGINE->STATE_NEXT) {
         loadNext();
-        changeLevel = false;
     }
-    return true;
 }

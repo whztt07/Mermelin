@@ -173,12 +173,12 @@ void Engine::loadModule(ModuleType moduleType)
             }
             default:
             {
-                LogManager::getSingleton().logMessage("[ENGINE]: There's no such module");
+                LogManager::getSingleton().logMessage(LML_CRITICAL, moduleType + " not found.");
                 return;
             }
         }
 
-        if (module != NULL) {
+        if (module) {
             module->load();
             modules[moduleType] = module;
         }
@@ -208,7 +208,7 @@ BaseModule* Engine::getModule(ModuleType moduleType)
     BaseModule* ptr;
     ptr = modules[moduleType];
     if (!ptr) {
-        LogManager::getSingleton().logMessage(LML_NORMAL, "[ENGINE]: Module not in list");
+        LogManager::getSingleton().logMessage(LML_CRITICAL, moduleType + " not in list");
     }
     return ptr;
 }
@@ -226,8 +226,11 @@ Engine* Engine::getInstance()
     }
 }
 
-CotopaxiEngine::Camera* Engine::getCamera() const
+CotopaxiEngine::Camera* Engine::getCamera()
 {
+    if (!camera) {
+        camera = new Camera();
+    }
     return camera;
 }
 
@@ -272,7 +275,7 @@ CotopaxiEngine::Entity* Engine::getEntity(std::string name)
 {
     std::map<std::string, Entity*>::iterator it = entities.find(name);
     if (it != entities.end()) {
-        return it->second; //element found;
+        return it->second;
     }
 
     return NULL;
@@ -284,10 +287,11 @@ CotopaxiEngine::Entity* Engine::createEntity(std::string name, std::string meshN
     if (getEntity(name) == NULL) {
         CotopaxiEngine::Entity* entityToCreate = new Entity(name, meshName, parentNode);
         entities[name] = entityToCreate;
-        return entities[name];
+        return entityToCreate;
     }
 
-    LogManager::getSingleton().logMessage(LML_TRIVIAL, "[ENGINE]: Entity already exists", true);
+    LogManager::getSingleton().logMessage(LML_TRIVIAL, "Entity " + name
+            + " already exists", true);
     return NULL;
 }
 
@@ -333,11 +337,24 @@ GUIModule* Engine::getGUI()
 
 void Engine::throwEvent(const Event::EventType& type)
 {
-    Event event(type);
-
+    Event* event = new Event(type);
     std::vector<EventListener*>::iterator i;
-    for (i = eventListeners[type].begin(); i != eventListeners[type].end(); ++i) {
-        (*i)->receiveEvent(&event);
+    for (i = eventListeners[type].begin(); i != eventListeners[type].end(); i++) {
+        (*i)->receiveEvent(event);
+    }
+}
+
+void Engine::throwEvent(CotopaxiEngine::Event* event)
+{
+    if (event->getType() == Event::LEVEL_END) {
+        CotopaxiEngine::Event* next = new Event(Event::LEVEL_READY_FOR_NEXT);
+        ParallelEvent* parallel = new ParallelEvent(next, event->getEntity());
+        parallel->Launch();
+    } else {
+        std::vector<EventListener*>::iterator i;
+        for (i = eventListeners[event->getType()].begin(); i != eventListeners[event->getType()].end(); i++) {
+            (*i)->receiveEvent(event);
+        }
     }
 }
 
@@ -363,11 +380,10 @@ CotopaxiEngine::Entity* Engine::produceEntity(std::string type, std::string name
 
         entities[name] = entity;
 
-        return entities[name];
+        return entity;
     }
 
-    LogManager::getSingleton().logMessage(LML_TRIVIAL, "[ENGINE] Method to create " + name
-            + " does not exist", true);
+    LogManager::getSingleton().logMessage(LML_TRIVIAL, name + " does not exist", true);
 
     return NULL;
 }
@@ -387,7 +403,7 @@ void Engine::popState()
 
 bool Engine::frameStarted(const Ogre::FrameEvent& evt)
 {
-    
+
     std::map<int, BaseModule*>::iterator i = modules.begin();
     do {
         if (!i->second->preUpdate(evt)) {
@@ -429,29 +445,41 @@ bool Engine::frameEnded(const Ogre::FrameEvent& evt)
 void Engine::removeAllEntities()
 {
     std::map<std::string, Entity*>::iterator i;
-    for(i = entities.begin(); i != entities.end(); i++) {
-        removeEntity(i->second);
+    for (i = entities.begin(); i != entities.end(); i++) {
+        if (i->second) {
+            Camera* camera = dynamic_cast<Camera*> (i->second);
+            if (!camera) {
+                removeEntity(i->second);
+            }
+        }
     }
+    entities.clear();
+    
 }
 
 void Engine::removeEntity(CotopaxiEngine::Entity* entity)
 {
+    Ogre::LogManager::getSingleton().logMessage(LML_TRIVIAL, "Removing  " + entity->getName());
     std::map<std::string, Entity*>::iterator i;
-    try {
-        i = entities.find(entity->getName());
-    } catch (std::exception& e) {
-        Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove an entity");
-        i = entities.end();
-    }
+    i = entities.find(entity->getName());
 
     if (i != entities.end()) {
         try {
-            entities.erase(i);
-        } catch (std::exception& e) {
-            Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove an entity");
+            if (entity) {
+                entities.erase(i);
+                delete entity;
+            }
+        } catch (...) {
+            Ogre::LogManager::getSingleton().logMessage("Couldn't properly remove "
+                    + entity->getName());
         }
     }
+}
 
-    delete entity;
-    entity = NULL;
+Engine::ParallelEvent::ParallelEvent(Event* e, EventListener* t)
+: event(e), target(t) { }
+
+void Engine::ParallelEvent::Run()
+{
+    target->receiveEvent(event);
 }

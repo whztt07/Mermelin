@@ -103,9 +103,9 @@ void Rotor::receiveEvent(Event* event)
     }
 
     if (event->getType() == Event::COLLISION_ENTER && active) {
-        Entity* player = dynamic_cast<Entity*> (event->entity);
+        Entity* player = dynamic_cast<Entity*> (event->getEntity());
 
-        if (player != NULL) {
+        if (player) {
             PhysicsComponent* entityPhys = dynamic_cast<PhysicsComponent*> (ENGINE->getPhysics()->getComponent(player));
             entityPhys->getBody()->applyImpulse(btVector3(0, 80, 0), btVector3(0, 1, 0));
         }
@@ -125,7 +125,7 @@ void Rotor::addComponent(BaseComponent* component)
     Entity::addComponent(component);
     Trigger* trigger = dynamic_cast<Trigger*> (component);
 
-    if (trigger != NULL) {
+    if (trigger) {
         this->registerListener(Event::COLLISION_ENTER, component);
         this->registerListener(Event::COLLISION_EXIT, component);
         this->registerListener(Event::CONDITION_FULFILLED, component);

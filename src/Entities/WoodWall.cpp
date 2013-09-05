@@ -53,9 +53,9 @@ void WoodWall::receiveEvent(Event* event)
         trigger->receiveEvent(event);
         audioComponent->play("wood", false);
 
-        Sphere* playerSphere = dynamic_cast<Sphere*> (event->entity);
+        Sphere* playerSphere = dynamic_cast<Sphere*> (event->getEntity());
 
-        if (playerSphere != NULL) {
+        if (playerSphere) {
             if (playerSphere->getState() == Element::FIRE) {
                 state = BURNING;
                 audioComponent->play("burning", false);
@@ -67,9 +67,8 @@ void WoodWall::receiveEvent(Event* event)
 }
 
 WoodWall::Destruction::Destruction(WoodWall* outer)
-{
-    wall = outer;
-}
+: wall(outer)
+{}
 
 void WoodWall::Destruction::Run()
 {

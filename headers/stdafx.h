@@ -15,17 +15,8 @@
 #define	PRECOMPILED_HEADERS_H
 
 // OGRE
-#include <OgreException.h>
-#include <OgreRoot.h>
-#include <OgreConfigFile.h>
-#include <OgreCamera.h>
-#include <OgreViewport.h>
-#include <OgreSceneManager.h>
-#include <OgreRenderWindow.h>
-#include <OgreEntity.h>
-#include <OgreWindowEventUtilities.h>
+#include <Ogre.h>
 #include <RenderSystems/GL/OgreGLSLProgram.h>
-#include <OgreFontManager.h>
 
 // OIS
 #include <OISEvents.h>

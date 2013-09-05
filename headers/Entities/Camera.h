@@ -24,7 +24,6 @@
 #include "stdafx.h"
 #include "Entity.h"
 #include "Engine.h"
-#include "SFML/Audio/Listener.hpp"
 
 namespace CotopaxiEngine {
 
@@ -102,10 +101,7 @@ namespace CotopaxiEngine {
          * Makes the Ogre::Camera accesible from outside.
          * @return pointer to a Ogre::Camera instance.
          */
-        Ogre::Camera* getCamera() const
-        {
-            return camera;
-        }
+        Ogre::Camera* getCamera();
 
         /**
          * @fn isAttached
@@ -115,10 +111,13 @@ namespace CotopaxiEngine {
         bool isAttached() const;
 
     private:
+        std::string name;
         bool attached;
         Ogre::Camera* camera;
         Ogre::Vector3 offset;
         Entity* object;
+        
+        void prepare();
     };
 }
 #endif

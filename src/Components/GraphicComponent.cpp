@@ -28,20 +28,15 @@ GraphicComponent::GraphicComponent()
 
 GraphicComponent::~GraphicComponent()
 {
-    ENGINE->getModule(Engine::ModuleType::MODULE_GRAPHIC)->removeComponent(parent->getName());
-
-    if (animated) {
+    if (animated && animation) {
         delete animation;
         animation = NULL;
     }
 
-    if (shaderUsage) {
+    if (shaderUsage && shader) {
         delete shader;
         shader = NULL;
     }
-    
-    ENGINE->getSceneManager()->destroySceneNode(parent->getNode());
-    ENGINE->getSceneManager()->destroyEntity(parent->getOgreEntity());
 }
 
 void GraphicComponent::setParent(Entity* parent)
@@ -82,11 +77,11 @@ void GraphicComponent::setAnimation(std::string name, bool loop)
 
 void GraphicComponent::setShader(Shader* s)
 {
-    // if(shaderUsage) {
-    //     delete shader;
-    // }
+    //    if (shaderUsage && shader) {
+    //        delete shader;
+    //    }
     shader = s;
-    // shaderUsage = true;
+    //    shaderUsage = true;
 }
 
 void GraphicComponent::reloadShader()

@@ -37,16 +37,17 @@ Goal::Goal(std::string name, Ogre::SceneNode* parentNode)
 void Goal::receiveEvent(Event* e)
 {
     if (e->getType() == Event::COLLISION_ENTER) {
-        Sphere* sphere = dynamic_cast<Sphere*> (e->entity);
-        if (sphere != NULL) {
-            ENGINE->throwEvent(Event::LEVEL_END);
+        Sphere* sphere = dynamic_cast<Sphere*> (e->getEntity());
+        if (sphere) {
+            Event* e = new Event(Event::LEVEL_END);
+            e->setEntity(this);
+            ENGINE->throwEvent(e);
             delete e;
-            e = NULL;
         }
     } else if (e->getType() == Event::TRANSLATE) {
         ENGINE->getPhysics()->getComponent(this)->receiveEvent(e);
-    } else {
-        Entity::receiveEvent(e);
+    } else if (e->getType() == Event::LEVEL_READY_FOR_NEXT) {
+        ENGINE->setState(ENGINE->STATE_NEXT);
+        ENGINE->throwEvent(Event::LEVEL_LOAD_NEXT);
     }
 }
-

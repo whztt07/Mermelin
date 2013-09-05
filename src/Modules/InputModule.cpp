@@ -68,12 +68,12 @@ InputModule::~InputModule()
     unload();
 }
 
-bool InputModule::update(const Ogre::FrameEvent &evt)
+bool InputModule::update(const Ogre::FrameEvent &event)
 {
     mouse->capture();
     key->capture();
 
-    Ogre::Real time = evt.timeSinceLastFrame;
+    Ogre::Real time = event.timeSinceLastFrame;
     Ogre::Real speed = 20.0f;
 
     if (ENGINE->getState() != ENGINE->STATE_STOPPED) {
@@ -193,9 +193,9 @@ bool InputModule::keyPressed(const KeyEvent& event)
     return true;
 }
 
-bool InputModule::keyReleased(const KeyEvent& arg)
+bool InputModule::keyReleased(const KeyEvent& event)
 {
-    switch (arg.key)
+    switch (event.key)
     {
         case OIS::KC_UP:
         {
@@ -231,13 +231,13 @@ bool InputModule::mouseMoved(const MouseEvent& event)
     return true;
 }
 
-bool InputModule::mousePressed(const MouseEvent& arg, MouseButtonID id)
+bool InputModule::mousePressed(const MouseEvent& event, MouseButtonID id)
 {
     getContext()->ProcessMouseButtonDown((int) id, getModifier());
     return true;
 }
 
-bool InputModule::mouseReleased(const MouseEvent& arg, MouseButtonID id)
+bool InputModule::mouseReleased(const MouseEvent& event, MouseButtonID id)
 {
     getContext()->ProcessMouseButtonUp((int) id, getModifier());
     return true;

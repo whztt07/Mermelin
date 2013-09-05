@@ -32,12 +32,13 @@ PhysicsComponent::PhysicsComponent(btScalar mass, PhysicsModule::Shape s, short 
 
 PhysicsComponent::~PhysicsComponent()
 {
-    ENGINE->getPhysics()->getWorld()->removeRigidBody(body);
     ENGINE->getPhysics()->removeComponent(this->parent->getName());
+    ENGINE->getPhysics()->getWorld()->removeRigidBody(body);   
     delete body;
     delete shape;
     body = NULL;
     shape = NULL;
+    physicsEntity = NULL;    
 }
 
 void PhysicsComponent::setParent(Entity* parent)
@@ -193,7 +194,7 @@ void PhysicsComponent::handleContact(PhysicsComponent* component)
     }
 
     Event e(Event::EventType::COLLISION_ENTER);
-    e.entity = component->getParent();
+    e.setEntity(component->getParent());
 
     parent->receiveEvent(&e);
 }

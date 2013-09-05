@@ -23,7 +23,8 @@
 #include "Components/BaseComponent.h"
 #include "Shaders/Shader.h"
 
-namespace CotopaxiEngine {
+namespace CotopaxiEngine
+{
 
     /**
      * @class GraphicComponent
@@ -76,40 +77,40 @@ namespace CotopaxiEngine {
          * @param time How much time has passed since the last update
          */
         void update(Ogre::Real time);
+
         /**
          * @fn getShader
          * Returns the current shader
          * @return The current shader
          */
-        Shader* getShader() const
-        {
+        Shader* getShader() const {
             return shader;
         }
+
         /**
          * @fn isAnitmated
          * Tells if the component has an animation
          * @return true if it's animated
          */
-        bool isAnimated() const
-        {
+        bool isAnimated() const {
             return animated;
         }
+
         /**
          * @fn getAnimation
          * Enables access to the current state of the animation
          * @return a pointer to the actual AnimationState
          */
-        Ogre::AnimationState* getAnimation() const
-        {
+        Ogre::AnimationState* getAnimation() const {
             return animation;
         }
+
         /**
-         * @fb hasShader
+         * @fn hasShader
          * Indicates if a Shader is used
          * @return true if there is an active shader program
          */
-        bool hasShader() const
-        {
+        bool hasShader() const {
             return shaderUsage;
         }
 

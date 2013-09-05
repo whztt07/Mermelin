@@ -61,10 +61,6 @@ void IntroState::load()
 
     ENGINE->pushState(new PlayState());
 
-    // Playing with background animation. Funny but not usable yet
-    //    material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setTransformAnimation(
-    //            Ogre::TextureUnitState::TextureTransformType::TT_SCALE_V,
-    //            Ogre::WaveformType::WFT_SINE, 0, 10, 0, 0.01);
     timer.reset();
     loaded = true;
 }
@@ -72,13 +68,4 @@ void IntroState::load()
 void IntroState::unload()
 {
     ENGINE->getSceneManager()->getRootSceneNode()->removeChild("Intro");
-}
-
-bool IntroState::frameRenderingQueued(const FrameEvent& evt)
-{
-    if (timer.getMilliseconds() >= 3000) {
-        pushState(playState);
-        this->unload();
-    }
-    return true;
 }

@@ -51,11 +51,20 @@ LevelPtr LevelManager::load(const Ogre::String& name, const Ogre::String& group)
 {
     LevelPtr level = getByName(name);
 
-    if (level.isNull())
+    if (level.isNull()) {
         level = create(name, group);
-
+    }
+        
     level->load();
     return level;
+}
+void LevelManager::unload(const Ogre::String& name, const Ogre::String& group)
+{
+    LevelPtr level = getByName(name);
+
+    if (!level.isNull()) {
+        level->unload();
+    }
 }
 
 Ogre::Resource* LevelManager::createImpl(const Ogre::String& name,

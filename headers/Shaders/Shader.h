@@ -9,7 +9,8 @@
 #define	SHADER_H
 #include "stdafx.h"
 
-namespace CotopaxiEngine {
+namespace CotopaxiEngine
+{
 
     // forward declaration
     class Entity;
@@ -112,24 +113,24 @@ namespace CotopaxiEngine {
          * @return A shared pointer to a GpuProgramParameters reference
          */
         Ogre::GpuProgramParametersSharedPtr getFragment();
+
         /**
          * @fn getPass
          * Return the pass 0 from the generated material
          * @return A pointer to the Ogre::Pass
          */
-        Ogre::Pass* getPass() const
-        {
+        Ogre::Pass* getPass() const {
             return pass;
         }
-        static void setShaderLevel(ShaderLevel level)
-        {
+
+        static void setShaderLevel(ShaderLevel level) {
             shaderLevel = level;
         }
-        static int getShaderLevel()
-        {
+
+        static int getShaderLevel() {
             return shaderLevel;
         }
-        
+
         /**
          * @fn reload
          * Calls the @link load @endlink fuction of the subclass, making use of the template
@@ -145,7 +146,7 @@ namespace CotopaxiEngine {
          * shader. Is used
          * Should be called by its contructor.
          */
-        virtual void load() = 0;        
+        virtual void load() = 0;
         Entity* entity;
 
     private:
@@ -155,7 +156,7 @@ namespace CotopaxiEngine {
         Ogre::Pass* pass;
         std::string shaderName;
         std::string materialName;
-        
+
         void prepare();
     };
 }

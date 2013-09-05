@@ -51,6 +51,15 @@ namespace CotopaxiEngine {
          * @return An instance of Level.
          */
         virtual LevelPtr load(const Ogre::String& name, const Ogre::String& group);
+        
+        /**
+         * @fn unload
+         * Unloads the Level using the resource manager from Ogre.
+         * @param name Name of the level file (ex. level1.txt")
+         * @param group The resource group in Ogre
+         * @return An instance of Level.
+         */
+        virtual void unload(const Ogre::String& name, const Ogre::String& group);
 
         /**
          * @fn getSingleton

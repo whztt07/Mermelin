@@ -61,8 +61,8 @@ void TypeChanger::setElement(CotopaxiEngine::Element element)
 void TypeChanger::receiveEvent(Event* e)
 {
     if (e->getType() == Event::COLLISION_ENTER) {
-        Sphere* sphere = dynamic_cast<Sphere*> (e->entity);
-        if (sphere != NULL) {
+        Sphere* sphere = dynamic_cast<Sphere*> (e->getEntity());
+        if (sphere) {
             sphere->setElement(this->element);
         }
     } else {

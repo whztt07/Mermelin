@@ -23,8 +23,8 @@
 using namespace CotopaxiEngine;
 using namespace Ogre;
 
-// inintalizing static variable
-int Shader::shaderLevel = Shader::LEVEL_INTERMEDIATE;
+// initalizing static variable
+int Shader::shaderLevel = Shader::LEVEL_BASIC;
 
 Shader::Shader(CotopaxiEngine::Entity* entity, std::string shaderName, std::string materialName)
 : entity(entity),
@@ -34,7 +34,12 @@ materialName(materialName)
     prepare();
 }
 
-Shader::~Shader() {}
+Shader::~Shader()
+{
+    HighLevelGpuProgramManager::getSingletonPtr()->removeUnreferencedResources();
+    MaterialManager::getSingletonPtr()->destroyResourcePool(ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    pass = NULL;
+}
 
 GpuProgramParametersSharedPtr Shader::getVertex()
 {
@@ -68,7 +73,7 @@ void Shader::setGeometryShaderParameters(Ogre::RenderOperation::OperationType in
 }
 
 void Shader::reload()
-{    
+{
     prepare();
     load();
 }
