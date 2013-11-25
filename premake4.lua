@@ -83,7 +83,8 @@ if os.is("linux") then
         "sfml-audio",
         "pthread",
         "RocketCore",
-        "RocketControls"
+        "RocketControls",
+        "boost_system"
     }
 
     buildoptions { "-std=c++0x" }

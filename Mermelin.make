@@ -41,7 +41,7 @@ ifeq ($(config),debug)
   PCH        = headers/stdafx.h
   GCH        = $(OBJDIR)/stdafx.h.gch
   CPPFLAGS  += -I$(OBJDIR) -include $(OBJDIR)/stdafx.h
-  LIBS      += -lOgreMain -lOgreTerrain -lOIS -lBulletDynamics -lBulletCollision -lLinearMath -lsfml-system -lsfml-audio -lpthread -lRocketCore -lRocketControls
+  LIBS      += -lOgreMain -lOgreTerrain -lOIS -lBulletDynamics -lBulletCollision -lLinearMath -lsfml-system -lsfml-audio -lpthread -lRocketCore -lRocketControls -lboost_system
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
@@ -66,7 +66,7 @@ ifeq ($(config),release)
   PCH        = headers/stdafx.h
   GCH        = $(OBJDIR)/stdafx.h.gch
   CPPFLAGS  += -I$(OBJDIR) -include $(OBJDIR)/stdafx.h
-  LIBS      += -lOgreMain -lOgreTerrain -lOIS -lBulletDynamics -lBulletCollision -lLinearMath -lsfml-system -lsfml-audio -lpthread -lRocketCore -lRocketControls
+  LIBS      += -lOgreMain -lOgreTerrain -lOIS -lBulletDynamics -lBulletCollision -lLinearMath -lsfml-system -lsfml-audio -lpthread -lRocketCore -lRocketControls -lboost_system
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS

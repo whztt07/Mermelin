@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="89">
+<configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="/home/eduardo/Dropbox/CPP/ehpMermelin" name="ehpMermelin">
+    <df root="/home/eduardo/Dropbox/CPP/ehpMermelin" name="0">
       <df name="bin">
         <df name="debug">
         </df>
@@ -76,6 +76,7 @@
           </df>
         </df>
         <df name="GameStates">
+          <in>GameState.cpp</in>
         </df>
         <df name="Logic">
         </df>
@@ -186,7 +187,6 @@
         </df>
       </df>
       <df name="GameStates">
-        <in>GameState.cpp</in>
         <in>IntroState.cpp</in>
         <in>PlayState.cpp</in>
       </df>

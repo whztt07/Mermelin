@@ -1,80 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="89">
+<configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="/home/eduardo/Dropbox/CPP/ehpMermelin" name="ehpMermelin">
-      <df name="obj">
-        <df name="Debug">
-          <in>stdafx.h</in>
+    <df root="/home/eduardo/Dropbox/CPP/ehpMermelin" name="0">
+      <df name="src">
+        <df name="GameStates">
+          <in>GameState.cpp</in>
         </df>
       </df>
     </df>
     <df name="headers">
-      <df name="Components">
-        <in>AudioComponent.h</in>
-        <in>BaseComponent.h</in>
-        <in>GhostComponent.h</in>
-        <in>GraphicComponent.h</in>
-        <in>InputComponent.h</in>
-        <in>LogicComponent.h</in>
-        <in>PhysicsComponent.h</in>
-      </df>
-      <df name="Entities">
-        <in>Button.h</in>
-        <in>Camera.h</in>
-        <in>Door.h</in>
-        <in>Entity.h</in>
-        <in>Goal.h</in>
-        <in>GroundPlate.h</in>
-        <in>Rotor.h</in>
-        <in>Sphere.h</in>
-        <in>TypeChanger.h</in>
-        <in>WoodWall.h</in>
-      </df>
-      <df name="External">
-        <df name="BtOgre">
-          <in>BtOgreExtras.h</in>
-          <in>BtOgreGP.h</in>
-          <in>BtOgrePG.h</in>
-        </df>
-      </df>
-      <df name="GameStates">
-        <in>GameState.h</in>
-        <in>IntroState.h</in>
-        <in>PlayState.h</in>
-      </df>
-      <df name="Logic">
-        <in>Condition.h</in>
-        <in>Trigger.h</in>
-      </df>
-      <df name="Modules">
-        <in>AudioModule.h</in>
-        <in>BaseModule.h</in>
-        <in>GUIModule.h</in>
-        <in>GraphicModule.h</in>
-        <in>InputModule.h</in>
-        <in>LogicModule.h</in>
-        <in>PhysicsModule.h</in>
-      </df>
-      <df name="Resources">
-        <df name="Files">
-          <in>Audio.h</in>
-          <in>Level.h</in>
-        </df>
-        <df name="Managers">
-          <in>AudioManager.h</in>
-          <in>LevelManager.h</in>
-        </df>
-      </df>
-      <df name="Shaders">
-        <in>AirShader.h</in>
-        <in>EarthShader.h</in>
-        <in>FireShader.h</in>
-        <in>RotationShader.h</in>
-        <in>Shader.h</in>
-        <in>WaterShader.h</in>
-      </df>
-      <in>Engine.h</in>
-      <in>Event.h</in>
       <in>stdafx.h</in>
     </df>
     <df name="src">
@@ -103,7 +37,6 @@
         </df>
       </df>
       <df name="GameStates">
-        <in>GameState.cpp</in>
         <in>IntroState.cpp</in>
         <in>PlayState.cpp</in>
       </df>
@@ -149,7 +82,6 @@
   <confs>
     <conf name="Default" type="0">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>false</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
@@ -164,25 +96,11 @@
           <executablePath>bin/debug/Mermelin</executablePath>
           <cTool>
             <standard>3</standard>
-            <incDir>
-              <pElem>.</pElem>
-              <pElem>.</pElem>
-            </incDir>
           </cTool>
           <ccTool>
             <standard>8</standard>
             <incDir>
               <pElem>headers</pElem>
-              <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
-              <pElem>obj/Debug</pElem>
-              <pElem>obj/Debug/stdafx.h</pElem>
-              <pElem>/usr/include/ois</pElem>
-              <pElem>/usr/local/include/bullet</pElem>
-              <pElem>.</pElem>
-              <pElem>/usr/include/OGRE</pElem>
-              <pElem>/usr/local/include</pElem>
-              <pElem>.</pElem>
-              <pElem>.</pElem>
             </incDir>
             <preprocessorList>
               <Elem>DEBUG</Elem>
@@ -190,126 +108,118 @@
           </ccTool>
         </makeTool>
       </makefileType>
-      <item path="/home/eduardo/Dropbox/CPP/ehpMermelin/obj/Debug/stdafx.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/Components/AudioComponent.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/Components/BaseComponent.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Components/GhostComponent.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/Components/GraphicComponent.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/Components/InputComponent.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/Components/LogicComponent.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/Components/PhysicsComponent.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/Engine.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/Button.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/Camera.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/Door.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/Entity.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/Goal.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/GroundPlate.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/Rotor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/Sphere.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/TypeChanger.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Entities/WoodWall.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Event.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/External/BtOgre/BtOgreExtras.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/External/BtOgre/BtOgreGP.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/External/BtOgre/BtOgrePG.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/GameStates/GameState.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/GameStates/IntroState.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/GameStates/PlayState.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Logic/Condition.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Logic/Trigger.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Modules/AudioModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Modules/BaseModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Modules/GUIModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Modules/GraphicModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Modules/InputModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Modules/LogicModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Modules/PhysicsModule.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Resources/Files/Audio.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Resources/Files/Level.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Resources/Managers/AudioManager.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/Resources/Managers/LevelManager.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="headers/Shaders/AirShader.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Shaders/EarthShader.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Shaders/FireShader.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Shaders/RotationShader.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Shaders/Shader.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="headers/Shaders/WaterShader.h" ex="false" tool="3" flavor2="0">
-      </item>
+      <folder path="0">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="headers">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="src/Components">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="src/Entities">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="src/External">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="src/GameStates">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="src/Logic">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="src/Modules">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
       <item path="headers/stdafx.h" ex="false" tool="1" flavor2="8">
         <ccTool>
         </ccTool>
@@ -342,6 +252,16 @@
       </item>
       <item path="src/Engine.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Entities/Button.cpp" ex="false" tool="1" flavor2="8">
@@ -386,9 +306,21 @@
       </item>
       <item path="src/Event.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
       </item>
-      <item path="src/External/BtOgre/BtOgre.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/External/BtOgre/BtOgre.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool>
+        </ccTool>
       </item>
       <item path="src/GameStates/GameState.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
@@ -412,6 +344,16 @@
       </item>
       <item path="src/Main.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Modules/AudioModule.cpp" ex="false" tool="1" flavor2="8">
@@ -440,10 +382,30 @@
       </item>
       <item path="src/Resources/Files/Audio.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Resources/Files/Level.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Resources/Managers/AudioManager.cpp"
@@ -451,6 +413,16 @@
             tool="1"
             flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Resources/Managers/LevelManager.cpp"
@@ -458,30 +430,100 @@
             tool="1"
             flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Shaders/AirShader.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>.</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Shaders/EarthShader.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Shaders/FireShader.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Shaders/RotationShader.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Shaders/Shader.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/Shaders/WaterShader.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+          <incDir>
+            <pElem>/usr/local/include/bullet/ConvexDecomposition</pElem>
+            <pElem>obj/Debug</pElem>
+            <pElem>obj/Debug/stdafx.h</pElem>
+            <pElem>/usr/include/ois</pElem>
+            <pElem>/usr/local/include/bullet</pElem>
+            <pElem>.</pElem>
+            <pElem>/usr/include/OGRE</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
       </item>
     </conf>
